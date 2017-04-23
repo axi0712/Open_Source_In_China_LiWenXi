@@ -641,7 +641,8 @@ public class Activity_Retrofit implements IHTPP {
     public void getLogin_Info(String uid, final MyCallBack callback) {
 
         RetrofitInterface inter = re.create(RetrofitInterface.class);
-        Call<ResponseBody> call = inter.getLogin_Info(share.getString("cookie",""), uid);
+        final SharedPreferences sharedPreferences = App.base.getSharedPreferences("data",Context.MODE_PRIVATE);
+        Call<ResponseBody> call = inter.getLogin_Info(sharedPreferences.getString("cookie",""), uid);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, final Response<ResponseBody> response) {
@@ -654,7 +655,7 @@ public class Activity_Retrofit implements IHTPP {
                         public void run() {
                             //触发请求成功的回调
                             callback.onSuccess(result);
-                            Toast.makeText(App.base, share.getString("cookie",""), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(App.base, sharedPreferences.getString("cookie",""), Toast.LENGTH_SHORT).show();
                         }
                     });
                 } catch (IOException e) {
@@ -839,7 +840,8 @@ public class Activity_Retrofit implements IHTPP {
     @Override
     public void getSend_Move(String uid, String msg, String img, String amr,final MyCallBack callback) {
         RetrofitInterface inter = re.create(RetrofitInterface.class);
-        Call<ResponseBody> call = inter.getSend_Move(share.getString("cookie",""),uid,msg,img,amr);
+        SharedPreferences sharedPreferences = App.base.getSharedPreferences("data",Context.MODE_PRIVATE);
+        Call<ResponseBody> call = inter.getSend_Move(sharedPreferences.getString("cookie",""),uid,msg,img,amr);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, final Response<ResponseBody> response) {
@@ -905,11 +907,12 @@ public class Activity_Retrofit implements IHTPP {
     @Override
     public void getMove_Zan(String tweetid, String uid, String ownerOfTweet, final MyCallBack callback) {
         RetrofitInterface inter = re.create(RetrofitInterface.class);
-        Call<ResponseBody> call = inter.getMove_Zan(share.getString("cookie",""),tweetid,uid,ownerOfTweet);
+        SharedPreferences sharedPreferences = App.base.getSharedPreferences("data",Context.MODE_PRIVATE);
+        Call<ResponseBody> call = inter.getMove_Zan(sharedPreferences.getString("cookie",""),tweetid,uid,ownerOfTweet);
             call.enqueue(new Callback<ResponseBody>() {
                 @Override
             public void onResponse(Call<ResponseBody> call, final Response<ResponseBody> response) {
-
+             saveCookie(response);
                 final String result;
                 try {
                     result = response.body().string();

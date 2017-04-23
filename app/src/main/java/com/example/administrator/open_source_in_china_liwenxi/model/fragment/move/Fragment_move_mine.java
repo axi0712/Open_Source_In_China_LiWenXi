@@ -3,6 +3,7 @@ package com.example.administrator.open_source_in_china_liwenxi.model.fragment.mo
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
@@ -10,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androidkun.PullToRefreshRecyclerView;
@@ -17,7 +19,9 @@ import com.androidkun.adapter.BaseAdapter;
 import com.androidkun.adapter.ViewHolder;
 import com.androidkun.callback.PullToRefreshListener;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.example.administrator.open_source_in_china_liwenxi.App;
 import com.example.administrator.open_source_in_china_liwenxi.R;
 import com.example.administrator.open_source_in_china_liwenxi.base.BaseFragment;
 import com.example.administrator.open_source_in_china_liwenxi.model.INewModel;
@@ -44,6 +48,7 @@ public class Fragment_move_mine extends BaseFragment {
     private MyAdapter mAdapter;
     private int pageIndex = 1;
     private INewModel model = null;
+    private String isLike;
 
     @Override
     protected int layoutId() {
@@ -152,7 +157,7 @@ public class Fragment_move_mine extends BaseFragment {
         }
 
         @Override
-        public void convert(ViewHolder holder, final Move_MainJavaBean.TweetBean javaBean) {
+        public void convert(final ViewHolder holder, final Move_MainJavaBean.TweetBean javaBean) {
             final ImageView im = (ImageView) holder.itemView.findViewById(R.id.move_new_item);
 //            if(javaBean.getPortrait().isEmpty()){
 //                im.setImageResource(R.mipmap.ic_launcher);
@@ -171,8 +176,10 @@ public class Fragment_move_mine extends BaseFragment {
             String date = Dates.getDate(javaBean.getPubDate());
             Log.i("date________", date);
             holder.setText(R.id.item_newsdongtan_author_date, date);
-            final String isLike = javaBean.getIsLike();
-            holder.setText(R.id.item_newsdongtan_author_zan,isLike);
+            isLike = javaBean.getIsLike()+"";
+            holder.setText(R.id.item_newsdongtan_author_zan, isLike);
+            final ImageView ima = (ImageView) holder.itemView.findViewById(R.id.move_new_image);
+            Glide.with(App.lastFragment).load(javaBean.getImgSmall()).diskCacheStrategy(DiskCacheStrategy.ALL).into(ima);
             holder.setOnclickListener(R.id.item_newsdongtan_author_zan, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -192,6 +199,11 @@ public class Fragment_move_mine extends BaseFragment {
                                 @Override
                                 public void onSuccess(String strSuccess) {
                                     Log.i("asd_____",strSuccess);
+                                    TextView text = holder.getView(R.id.item_newsdongtan_author_zan);
+                                    text.setTextColor(Color.parseColor("#FFCC1414"));
+                                    int i = Integer.parseInt(javaBean.getLikeCount()) + 1;
+                                    isLike = "1";
+                                    holder.setText(R.id.item_newsdongtan_author_zan, String.valueOf(i));
                                 }
                             });
                         }
