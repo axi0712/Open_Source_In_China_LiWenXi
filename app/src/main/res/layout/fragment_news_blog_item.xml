@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/blog_item"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_gravity="center_vertical"
+            android:id="@+id/news_blog_item_image"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:padding="5dp"
+           android:src="@drawable/ic_label_originate"
+
+            />
+        <ImageView
+            android:layout_gravity="center_vertical"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:padding="5dp"
+            android:id="@+id/news_blog_item_image_jian"
+            android:src="@drawable/ic_label_recommend"
+            />
+        <TextView
+            android:id="@+id/news_blog_item_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="title"
+            android:textColor="#000000"
+            android:textSize="23sp"
+            android:textStyle="bold"
+            />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/news_blog_item_body"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="title"
+        android:textSize="18dp"
+        android:textColor="#000000" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/blog_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="/@"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/main_blog_author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/blog_text"
+            android:text="学校的粉      "
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/news_blog_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/main_blog_author"
+            android:text="4分钟前"
+            android:textColor="#000000" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true">
+
+            <ImageView
+                android:id="@+id/news_blog_er"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:src="@drawable/ic_comment_30" />
+
+            <TextView
+                android:id="@+id/news_blog_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/news_blog_er"
+                android:text="2017-04-22 18:08:00"
+                android:textColor="#000000" />
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

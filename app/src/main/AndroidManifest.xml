@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.administrator.open_source_in_china_liwenxi">
+<uses-permission android:name="android.permission.INTERNET"/>
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <activity android:name=".Splash"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".MainActivity"/>
+        <activity android:name=".model.fragment.news.Activity_News_blog_WebView"/>
+
+        <activity android:name=".model.fragment.news.Activity_News_Open_WebView"/>
+
+        <activity android:name=".model.fragment.news.search.Activity_Search"/>
+
+        <activity android:name=".model.fragment.mine.Activity_Login"/>
+
+        <activity android:name=".model.fragment.discover.discover.Activity_Git"/>
+
+        <activity android:name=".model.fragment.discover.discover.soft.Activity_Soft"/>
+
+        <activity android:name=".model.fragment.Activity_Build"/>
+        <activity android:name=".model.fragment.discover.discover.activities.Activity_Activities"/>
+
+    </application>
+
+</manifest>

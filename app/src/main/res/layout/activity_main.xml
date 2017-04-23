@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context="com.example.administrator.open_source_in_china_liwenxi.MainActivity">
+
+
+    -
+
+    <RelativeLayout
+        android:id="@+id/main_rela"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#02c108">
+
+        <TextView
+            android:id="@+id/main_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="综合"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/main_title_image"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/search_icon" />
+
+    </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/main_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/main_rela"
+        android:layout_weight="1" />
+
+
+    -
+
+    <RadioGroup
+        android:id="@+id/Main_group"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="#ffffff"
+        android:orientation="horizontal"
+        android:weightSum="5">
+
+        <RadioButton
+            android:id="@+id/main_news"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:checked="true"
+            android:drawableTop="@drawable/synthesize"
+            android:gravity="center"
+            android:text="综合"
+            android:textColor="@drawable/synthesize_text" />
+
+        <RadioButton
+            android:id="@+id/main_move"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/move"
+            android:gravity="center"
+            android:text="动弹"
+            android:textColor="@drawable/synthesize_text" />
+
+        <RadioButton
+            android:id="@+id/main_iamge_build"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/build"
+            android:gravity="center" />
+
+        <RadioButton
+            android:id="@+id/main_discover"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/discover"
+            android:gravity="center"
+            android:text="发现"
+            android:textColor="@drawable/synthesize_text" />
+
+        <RadioButton
+            android:id="@+id/main_mine"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/mine"
+            android:gravity="center"
+            android:text="我的"
+            android:textColor="@drawable/synthesize_text" />
+
+    </RadioGroup>
+</RelativeLayout>
