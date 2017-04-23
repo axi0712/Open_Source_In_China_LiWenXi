@@ -31,8 +31,10 @@
         <activity android:name=".model.fragment.discover.discover.soft.Activity_Soft"/>
 
         <activity android:name=".model.fragment.Activity_Build"/>
+
         <activity android:name=".model.fragment.discover.discover.activities.Activity_Activities"/>
 
+        <activity android:name=".model.fragment.move.Activity_Move_Detail"/>
     </application>
 
 </manifest>

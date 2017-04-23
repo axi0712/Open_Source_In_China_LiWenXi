@@ -38,9 +38,9 @@ public class Fragment_Move extends BaseFragment {
 
     @Override
     protected void initData() {
-Fragment_move_new news = new Fragment_move_new();
-        Fragment_move_mine point = new Fragment_move_mine();
-        Fragment_Move_Hot hot = new Fragment_Move_Hot();
+Fragment_move_Hots news = new Fragment_move_Hots();
+        Fragment_move_News point = new Fragment_move_News();
+        Fragment_Move_Main hot = new Fragment_Move_Main();
         mFraList.add(point);
         mFraList.add(news);
         mFraList.add(hot);

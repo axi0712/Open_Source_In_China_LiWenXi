@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:id="@+id/fra_move_detail_lin"
+        android:weightSum="7"
+        android:background="@drawable/icon_record_layout_nor"
+        android:layout_width="match_parent"
+        android:layout_height="35dp">
+        <ImageView
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fra_news_blog_canel"
+            android:src="@drawable/ic_diary_back"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="  动弹详情"
+            android:textSize="25sp"
+            android:layout_weight="5"
+            android:textColor="#ffffff"
+            />
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_below="@id/fra_move_detail_lin"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:id="@+id/move_details_image"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/move_details_title"
+        android:text="name"
+        android:layout_toRightOf="@id/move_details_image"
+        android:padding="5dp"
+        android:gravity="center"
+        android:layout_below="@id/fra_move_detail_lin"
+        />
+    <TextView
+        android:layout_below="@id/move_details_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="body"
+        android:id="@+id/move_details_body"
+        />
+    <RelativeLayout
+        android:layout_below="@id/move_details_body"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        >
+
+        <TextView
+            android:id="@+id/move_detail_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="18dp"
+            android:text="2017-04-23 16:46:00"
+            android:textColor="#000" />
+
+
+
+        <TextView
+            android:id="@+id/move_detail_zhunfa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="18dp"
+            android:drawableLeft="@drawable/ic_forward"
+            android:text="转发"
+            android:textColor="#000" />
+
+        <TextView
+            android:id="@+id/move_detail_pinlun"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="18dp"
+            android:layout_toLeftOf="@id/move_detail_zhunfa"
+            android:drawableLeft="@drawable/ic_comment_30"
+            android:text="评论"
+            android:textColor="#000" />
+
+        <TextView
+            android:id="@+id/move_detail_zan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="18dp"
+            android:layout_toLeftOf="@id/move_detail_pinlun"
+            android:drawableLeft="@drawable/ic_thumb_normal"
+            android:drawablePadding="3dp"
+            android:text="12"
+            android:textColor="#000" />
+
+    </RelativeLayout>
+    <android.support.design.widget.TabLayout
+        android:layout_below="@id/move_details_body"
+        android:id="@+id/move_detail_tab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </android.support.design.widget.TabLayout>
+    <android.support.v4.view.ViewPager
+        android:layout_below="@id/move_detail_tab"
+        android:id="@+id/move_detail_viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></android.support.v4.view.ViewPager>
+</RelativeLayout>

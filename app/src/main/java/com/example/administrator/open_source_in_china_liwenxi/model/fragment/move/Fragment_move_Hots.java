@@ -1,6 +1,7 @@
 package com.example.administrator.open_source_in_china_liwenxi.model.fragment.move;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -35,12 +36,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
+import static com.example.administrator.open_source_in_china_liwenxi.R.id.item_newsdongtan_author_zan;
 
 /**
  * Created by Administrator on 2017/4/13 0013.
  */
 
-public class Fragment_move_new extends BaseFragment {
+public class Fragment_move_Hots extends BaseFragment {
     private PullToRefreshRecyclerView mView;
     private SharedPreferences mShared;
     private SharedPreferences.Editor mEditor;
@@ -173,14 +175,14 @@ public class Fragment_move_new extends BaseFragment {
             holder.setText(R.id.move_new_title, javaBean.getAuthor() + "");
             holder.setText(R.id.move_new_body, javaBean.getBody() + "");
             String date = Dates.getDate(javaBean.getPubDate());
-            Log.i("date________", date);
             holder.setText(R.id.item_newsdongtan_author_date, date);
 
             isLike = javaBean.getIsLike()+"";
-            holder.setText(R.id.item_newsdongtan_author_zan, isLike);
+            holder.setText(R.id.item_newsdongtan_author_zan, javaBean.getLikeCount());
+            Log.e("zan",javaBean.getLikeCount());
             final ImageView ima = (ImageView) holder.itemView.findViewById(R.id.move_new_image);
             Glide.with(App.lastFragment).load(javaBean.getImgSmall()).diskCacheStrategy(DiskCacheStrategy.ALL).into(ima);
-            holder.setOnclickListener(R.id.item_newsdongtan_author_zan, new View.OnClickListener() {
+            holder.setOnclickListener(item_newsdongtan_author_zan, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if(mShared.getString("uid","").isEmpty()){
@@ -198,16 +200,28 @@ public class Fragment_move_new extends BaseFragment {
 
                                 @Override
                                 public void onSuccess(String strSuccess) {
-                                    Log.i("asd_____",strSuccess);
-                                    TextView text = holder.getView(R.id.item_newsdongtan_author_zan);
+                                    TextView text = holder.getView(item_newsdongtan_author_zan);
                                     text.setTextColor(Color.parseColor("#FFCC1414"));
                                     int i = Integer.parseInt(javaBean.getLikeCount()) + 1;
                                     isLike = "1";
-                                    holder.setText(R.id.item_newsdongtan_author_zan, String.valueOf(i));
+                                    holder.setText(item_newsdongtan_author_zan, String.valueOf(i));
+                                    Log.i("asd_____",strSuccess);
                                 }
                             });
                         }
                     }
+                }
+            });
+            holder.setOnclickListener(R.id.move_new_linear, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent in = new Intent(getActivity().getApplicationContext(),Activity_Move_Detail.class);
+                    mEditor.putString("name",javaBean.getAuthor());
+                    mEditor.putString("body",javaBean.getBody());
+                    mEditor.putString("time",javaBean.getPubDate());
+                    mEditor.putString("image",javaBean.getPortrait());
+                    mEditor.commit();
+                    startActivity(in);
                 }
             });
 //            holder.setOnclickListener(R.id.news_open, new View.OnClickListener() {

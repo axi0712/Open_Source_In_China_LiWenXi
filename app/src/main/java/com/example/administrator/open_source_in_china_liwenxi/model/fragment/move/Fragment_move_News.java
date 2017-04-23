@@ -1,6 +1,7 @@
 package com.example.administrator.open_source_in_china_liwenxi.model.fragment.move;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -26,7 +27,7 @@ import com.example.administrator.open_source_in_china_liwenxi.R;
 import com.example.administrator.open_source_in_china_liwenxi.base.BaseFragment;
 import com.example.administrator.open_source_in_china_liwenxi.model.INewModel;
 import com.example.administrator.open_source_in_china_liwenxi.model.NewsModelImple;
-import com.example.administrator.open_source_in_china_liwenxi.model.fragment.bean.Move_NewJavaBean;
+import com.example.administrator.open_source_in_china_liwenxi.model.fragment.bean.Move_MainJavaBean;
 import com.example.administrator.open_source_in_china_liwenxi.model.http.MyCallBack;
 import com.example.administrator.open_source_in_china_liwenxi.utils.Dates;
 import com.thoughtworks.xstream.XStream;
@@ -37,26 +38,27 @@ import java.util.List;
 import static android.content.Context.MODE_PRIVATE;
 
 /**
- * Created by Administrator on 2017/4/17 0017.
+ * Created by Administrator on 2017/4/13 0013.
  */
 
-public class Fragment_Move_Hot extends BaseFragment {
+public class Fragment_move_News extends BaseFragment {
     private PullToRefreshRecyclerView mView;
     private SharedPreferences mShared;
     private SharedPreferences.Editor mEditor;
-    private ArrayList<Move_NewJavaBean.TweetBean> mList = new ArrayList<>();
+    private ArrayList<Move_MainJavaBean.TweetBean> mList = new ArrayList<>();
     private MyAdapter mAdapter;
     private int pageIndex = 1;
     private INewModel model = null;
     private String isLike;
+
     @Override
     protected int layoutId() {
-        return R.layout.fragment_move_hot;
+        return R.layout.fragment_move_point;
     }
 
     @Override
     protected void initView(View view) {
-        mView = (PullToRefreshRecyclerView) view.findViewById(R.id.move_hot_recycle);
+        mView = (PullToRefreshRecyclerView) view.findViewById(R.id.move_point_recycle);
         mShared = getActivity().getSharedPreferences("data", MODE_PRIVATE);
         mEditor = mShared.edit();
         model = new NewsModelImple();
@@ -113,7 +115,7 @@ public class Fragment_Move_Hot extends BaseFragment {
     }
 
     private void loadMode() {
-        model.move_hot("0", new MyCallBack() {
+        model.move_mine("0", new MyCallBack() {
             @Override
             public void onErro(String strErro) {
 
@@ -122,17 +124,16 @@ public class Fragment_Move_Hot extends BaseFragment {
             @Override
             public void onSuccess(String strSuccess) {
                 XStream xs = new XStream();
-                xs.alias("oschina", Move_NewJavaBean.class);
-                xs.alias("tweet",Move_NewJavaBean.TweetBean.class);
-                Move_NewJavaBean homeListBean = (Move_NewJavaBean) xs.fromXML(strSuccess);
+                xs.alias("oschina", Move_MainJavaBean.class);
+                xs.alias("tweet",Move_MainJavaBean.TweetBean.class);
+                Move_MainJavaBean homeListBean = (Move_MainJavaBean) xs.fromXML(strSuccess);
                 mList.addAll(homeListBean.getTweets());
                 mAdapter = new MyAdapter(getActivity().getApplicationContext(),R.layout.fragment_move_new_item,mList);
                 mView.setAdapter(mAdapter);
                 Log.i("多少",mAdapter.getItemCount()+"");
-                Log.i("KANKAN",homeListBean.getTweets().toString());
+                Log.i("KANKANMine",homeListBean.getTweets().toString());
             }
         });
-
     }
 
     @Override
@@ -147,16 +148,17 @@ public class Fragment_Move_Hot extends BaseFragment {
 
     @Override
     public void setParams(Bundle bundle) {
-
+        String test = bundle.getString("test");
+        Log.d("BlogFragment", test);
     }
-    class MyAdapter extends BaseAdapter<Move_NewJavaBean.TweetBean> {
+    class MyAdapter extends BaseAdapter<Move_MainJavaBean.TweetBean> {
 
-        public MyAdapter(Context context, int layoutId, List<Move_NewJavaBean.TweetBean> datas) {
+        public MyAdapter(Context context, int layoutId, List<Move_MainJavaBean.TweetBean> datas) {
             super(context, layoutId, datas);
         }
 
         @Override
-        public void convert(final ViewHolder holder, final Move_NewJavaBean.TweetBean javaBean) {
+        public void convert(final ViewHolder holder, final Move_MainJavaBean.TweetBean javaBean) {
             final ImageView im = (ImageView) holder.itemView.findViewById(R.id.move_new_item);
 //            if(javaBean.getPortrait().isEmpty()){
 //                im.setImageResource(R.mipmap.ic_launcher);
@@ -172,14 +174,12 @@ public class Fragment_Move_Hot extends BaseFragment {
 //            }
             holder.setText(R.id.move_new_title, javaBean.getAuthor() + "");
             holder.setText(R.id.move_new_body, javaBean.getBody() + "");
-
-
             String date = Dates.getDate(javaBean.getPubDate());
             Log.i("date________", date);
             holder.setText(R.id.item_newsdongtan_author_date, date);
-
             isLike = javaBean.getIsLike()+"";
-            holder.setText(R.id.item_newsdongtan_author_zan, isLike);
+            holder.setText(R.id.item_newsdongtan_author_zan, javaBean.getLikeCount());
+            Log.i("fiobvoisbids_________",javaBean.getLikeCount());
             final ImageView ima = (ImageView) holder.itemView.findViewById(R.id.move_new_image);
             Glide.with(App.lastFragment).load(javaBean.getImgSmall()).diskCacheStrategy(DiskCacheStrategy.ALL).into(ima);
             holder.setOnclickListener(R.id.item_newsdongtan_author_zan, new View.OnClickListener() {
@@ -212,13 +212,25 @@ public class Fragment_Move_Hot extends BaseFragment {
                     }
                 }
             });
+            holder.setOnclickListener(R.id.move_new_linear, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent in = new Intent(getActivity().getApplicationContext(),Activity_Move_Detail.class);
+                   mEditor.putString("name",javaBean.getAuthor());
+                   mEditor.putString("body",javaBean.getBody());
+                    mEditor.putString("time",javaBean.getPubDate());
+                    mEditor.putString("image",javaBean.getPortrait());
+                    mEditor.commit();
+                    startActivity(in);
+                }
+            });
 //            holder.setOnclickListener(R.id.news_open, new View.OnClickListener() {
 //                @Override
 //                public void onClick(View v) {
 //                    Intent in = new Intent(MainActivity.this,Activity_Details.class);
 //                    in.putExtra("details",javaBean.getId()+"");
 
-//                      当不是内部类时 ` ` ` ` ` ` `
+//                      当不是内部类时
 //                      String id = newsBean.getId();
 //                      holder.getLayoutPosition();
 //                      NewsListBean.NewsBean newsBean1 = datas.get(holder.getLayoutPosition());

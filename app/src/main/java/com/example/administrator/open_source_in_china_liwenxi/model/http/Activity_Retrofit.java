@@ -912,7 +912,7 @@ public class Activity_Retrofit implements IHTPP {
             call.enqueue(new Callback<ResponseBody>() {
                 @Override
             public void onResponse(Call<ResponseBody> call, final Response<ResponseBody> response) {
-             saveCookie(response);
+//                  saveCookie(response);
                 final String result;
                 try {
                     result = response.body().string();
