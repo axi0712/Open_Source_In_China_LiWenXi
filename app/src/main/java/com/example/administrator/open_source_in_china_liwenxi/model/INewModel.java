@@ -34,4 +34,6 @@ public interface INewModel {
     void send_move(String uid,String msg,String img,String amr,MyCallBack callback);
     void discover_activities(String pageIndex,MyCallBack callback);
     void move_zan(String tweetid,String uid,String owenrOfTweet,MyCallBack callback);
+    void move_UnZan(String tweetid,String uid,String owenrOfTweet,MyCallBack callback);
+    void move_PinLun(String id,String uid,String content,MyCallBack callback);
 }

@@ -3,14 +3,16 @@ package com.example.administrator.open_source_in_china_liwenxi.model.fragment.ne
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.androidkun.PullToRefreshRecyclerView;
 import com.androidkun.adapter.BaseAdapter;
@@ -19,14 +21,12 @@ import com.androidkun.callback.PullToRefreshListener;
 import com.example.administrator.open_source_in_china_liwenxi.App;
 import com.example.administrator.open_source_in_china_liwenxi.R;
 import com.example.administrator.open_source_in_china_liwenxi.base.BaseFragment;
-import com.example.administrator.open_source_in_china_liwenxi.model.fragment.bean.javaBean;
 import com.example.administrator.open_source_in_china_liwenxi.model.INewModel;
 import com.example.administrator.open_source_in_china_liwenxi.model.NewsModelImple;
+import com.example.administrator.open_source_in_china_liwenxi.model.fragment.bean.javaBean;
 import com.example.administrator.open_source_in_china_liwenxi.model.http.MyCallBack;
 import com.example.administrator.open_source_in_china_liwenxi.utils.Dates;
 import com.jude.rollviewpager.RollPagerView;
-import com.jude.rollviewpager.adapter.StaticPagerAdapter;
-import com.jude.rollviewpager.hintview.ColorPointHintView;
 import com.thoughtworks.xstream.XStream;
 
 import java.util.ArrayList;
@@ -46,28 +46,28 @@ public class Fragment_News_OpenSource extends BaseFragment {
     private MyAdapter mAdapter;
     private int pageIndex = 1;
     private INewModel model = null;
-//    private ViewPager mPager;
-//    private List<View> list = new ArrayList<>();
+    private ViewPager mPager;
+    private List<View> list = new ArrayList<>();
     private RollPagerView mRoll;
-//    private final int CODE_START = 0;
-//    private final int CODE_STOP = 1;
-//    private int currentItem = 10000000;
-//    private Handler mHand = new Handler() {
-//        @Override
-//        public void handleMessage(Message msg) {
-//            super.handleMessage(msg);
-//            switch (msg.what) {
-//                case CODE_START:
-//                    mPager.setCurrentItem(currentItem++);
-//                    mHand.sendEmptyMessageDelayed(CODE_START, 1000);
-//
-//                    break;
-//                case CODE_STOP:
-//                    mHand.removeMessages(CODE_START);
-//                    break;
-//            }
-//        }
-//    };
+    private final int CODE_START = 0;
+    private final int CODE_STOP = 1;
+    private int currentItem = 10000000;
+    private Handler mHand = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case CODE_START:
+                    mPager.setCurrentItem(currentItem++);
+                    mHand.sendEmptyMessageDelayed(CODE_START, 1000);
+
+                    break;
+                case CODE_STOP:
+                    mHand.removeMessages(CODE_START);
+                    break;
+            }
+        }
+    };
 
     @Override
     protected int layoutId() {
@@ -76,8 +76,9 @@ public class Fragment_News_OpenSource extends BaseFragment {
 
     @Override
     protected void initView(View view) {
-        View v = LayoutInflater.from(getActivity().getApplicationContext()).inflate(R.layout.fragemnt_news_rollviewpager,null);
-        mRoll = (RollPagerView) v.findViewById(R.id.fragment_news_viewPager);
+        View v = LayoutInflater.from(getActivity().getApplicationContext()).inflate(R.layout.fragement_new_viewpager,null);
+        mPager = (ViewPager) v.findViewById(R.id.new_viewpager);
+//        mRoll = (RollPagerView) v.findViewById(R.id.fragment_news_viewPager);
         mView = (PullToRefreshRecyclerView) view.findViewById(R.id.news_open_recycle);
         mShared = getActivity().getSharedPreferences("data", MODE_PRIVATE);
         mEditor = mShared.edit();
@@ -92,41 +93,40 @@ public class Fragment_News_OpenSource extends BaseFragment {
 //        mEditor.commit();
         recyclerView();
 
-        RollViewPager();
-//        mPager = (ViewPager) view.findViewById(R.id.fragment_news_viewPager);
+//        RollViewPager();
 //
 //
-//        mPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-//            @Override
-//            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-//
-//            }
-//
-//            @Override
-//            public void onPageSelected(int position) {
-//                currentItem = position;
-//            }
-//
-//            @Override
-//            public void onPageScrollStateChanged(int state) {
-//
-//            }
-//        });
-//        lunbo();
+        mPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                currentItem = position;
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+        lunbo();
 
     }
 
-    private void RollViewPager() {
-        //设置播放时间间隔
-        mRoll.setPlayDelay(1000);
-        //设置透明度
-        mRoll.setAnimationDurtion(500);
-        //设置适配器
-        mRoll.setAdapter(new RollAdapter());
-        //自定义只是图片
-        mRoll.setHintView(new ColorPointHintView(getActivity().getApplicationContext(), Color.YELLOW,Color.WHITE));
-
-    }
+//    private void RollViewPager() {
+//        //设置播放时间间隔
+//        mRoll.setPlayDelay(1000);
+//        //设置透明度
+//        mRoll.setAnimationDurtion(500);
+//        //设置适配器
+//        mRoll.setAdapter(new RollAdapter());
+//        //自定义只是图片
+//        mRoll.setHintView(new ColorPointHintView(getActivity().getApplicationContext(), Color.YELLOW,Color.WHITE));
+//
+//    }
 
     private void recyclerView() {
         LinearLayoutManager layout = new LinearLayoutManager(getActivity().getApplicationContext());
@@ -174,18 +174,18 @@ public class Fragment_News_OpenSource extends BaseFragment {
         });
     }
 
-//    private void lunbo() {
-//        View v = LayoutInflater.from(getActivity().getApplicationContext()).inflate(R.layout.news_opensources_item1, null);
-//        View v1 = LayoutInflater.from(getActivity().getApplicationContext()).inflate(R.layout.news_opensources_item2, null);
-//        View v2 = LayoutInflater.from(getActivity().getApplicationContext()).inflate(R.layout.news_opensources_item3, null);
-//        list.add(v);
-//        list.add(v1);
-//        list.add(v2);
-//
-//        mPager.setAdapter(new MyPagerAdapter());
-//        mPager.setCurrentItem(currentItem++);
-//        mHand.sendEmptyMessageDelayed(CODE_START, 1000);
-//    }
+    private void lunbo() {
+        View v = LayoutInflater.from(getActivity().getApplicationContext()).inflate(R.layout.news_opensources_item1, null);
+        View v1 = LayoutInflater.from(getActivity().getApplicationContext()).inflate(R.layout.news_opensources_item2, null);
+        View v2 = LayoutInflater.from(getActivity().getApplicationContext()).inflate(R.layout.news_opensources_item3, null);
+        list.add(v);
+        list.add(v1);
+        list.add(v2);
+
+        mPager.setAdapter(new MyPagerAdapter());
+        mPager.setCurrentItem(currentItem++);
+        mHand.sendEmptyMessageDelayed(CODE_START, 1000);
+    }
 
     private void loadMode() {
         model.newsList("1", new MyCallBack() {
@@ -256,74 +256,80 @@ public class Fragment_News_OpenSource extends BaseFragment {
         }
     }
 
-//    class MyPagerAdapter extends PagerAdapter {
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+        class MyPagerAdapter extends PagerAdapter {
+
+        @Override
+        public int getCount() {
+            return Integer.MAX_VALUE;
+        }
+
+        @Override
+        public boolean isViewFromObject(View view, Object object) {
+            return view == object;
+        }
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+
+        }
+
+        @Override
+        public Object instantiateItem(ViewGroup container, int position) {
+            if (container != null) {
+                container.removeView(list.get(position % list.size()));
+            }
+            container.addView(list.get(position % list.size()));
+            return list.get(position % list.size());
+        }
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean  isVisibleToUser) {
+            super.setUserVisibleHint(isVisibleToUser);
+            if (isVisibleToUser) {
+                Log.e("显示", "显示");
+//c
+                mHand.sendEmptyMessageDelayed(CODE_START, 1000);
+
+        } else {
+            if (boo) {
+                boo = false;
+            } else {
+                mHand.sendEmptyMessage(CODE_STOP);
+            }
+
+            Log.e("影藏", "影藏");
+        }
+    }
+
+    private boolean boo = true;
+    private boolean boo1 = true;
+//    class RollAdapter extends StaticPagerAdapter{
+//     private int[] imgs = {
+//             R.mipmap.purple_sky,
+//             R.mipmap.blue_windy,
+//             R.mipmap.sea,
+//     };
 //
-//        @Override
-//        public int getCount() {
-//            return Integer.MAX_VALUE;
-//        }
-//
-//        @Override
-//        public boolean isViewFromObject(View view, Object object) {
-//            return view == object;
-//        }
-//
-//        @Override
-//        public void destroyItem(ViewGroup container, int position, Object object) {
-//
-//        }
-//
-//        @Override
-//        public Object instantiateItem(ViewGroup container, int position) {
-//            if (container != null) {
-//                container.removeView(list.get(position % list.size()));
-//            }
-//            container.addView(list.get(position % list.size()));
-//            return list.get(position % list.size());
-//        }
+//    @Override
+//    public View getView(ViewGroup container, int position) {
+//        ImageView view = new ImageView(container.getContext());
+//        view.setImageResource(imgs[position]);
+//        view.setScaleType(ImageView.ScaleType.CENTER_CROP);
+//        view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT));
+//        return view;
 //    }
 //
 //    @Override
-//    public void setUserVisibleHint(boolean  isVisibleToUser) {
-//            super.setUserVisibleHint(isVisibleToUser);
-//            if (isVisibleToUser) {
-//                Log.e("显示", "显示");
-////c
-//                mHand.sendEmptyMessageDelayed(CODE_START, 1000);
-//
-//        } else {
-//            if (boo) {
-//                boo = false;
-//            } else {
-//                mHand.sendEmptyMessage(CODE_STOP);
-//            }
-//
-//            Log.e("影藏", "影藏");
-//        }
+//    public int getCount() {
+//        return imgs.length;
 //    }
 //
-//    private boolean boo = true;
-//    private boolean boo1 = true;
-    class RollAdapter extends StaticPagerAdapter{
-     private int[] imgs = {
-             R.mipmap.purple_sky,
-             R.mipmap.blue_windy,
-             R.mipmap.sea,
-     };
+//}
 
-    @Override
-    public View getView(ViewGroup container, int position) {
-        ImageView view = new ImageView(container.getContext());
-        view.setImageResource(imgs[position]);
-        view.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT));
-        return view;
-    }
-
-    @Override
-    public int getCount() {
-        return imgs.length;
-    }
-
-}
 }

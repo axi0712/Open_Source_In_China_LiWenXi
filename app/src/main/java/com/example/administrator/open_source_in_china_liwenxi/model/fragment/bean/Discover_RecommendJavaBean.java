@@ -15,6 +15,15 @@ public class Discover_RecommendJavaBean {
         return pagesize;
     }
 
+    @Override
+    public String toString() {
+        return "Discover_RecommendJavaBean{" +
+                "pagesize='" + pagesize + '\'' +
+                ", softwarecount='" + softwarecount + '\'' +
+                ", softwares=" + softwares +
+                '}';
+    }
+
     public void setPagesize(String pagesize) {
         this.pagesize = pagesize;
     }
@@ -47,6 +56,16 @@ public class Discover_RecommendJavaBean {
 
         public void setId(String id) {
             this.id = id;
+        }
+
+        @Override
+        public String toString() {
+            return "SoftwareBean{" +
+                    "id='" + id + '\'' +
+                    ", name='" + name + '\'' +
+                    ", description='" + description + '\'' +
+                    ", url='" + url + '\'' +
+                    '}';
         }
 
         public String getName() {

@@ -91,7 +91,7 @@ public class Fragment_Mine extends BaseFragment {
                 mMineImageTouxiang.setImageDrawable(ciDrawable);
             }
         });
-        name.setText(mShared.getString("name",""));
+
         getInfo();
     }
 
@@ -118,7 +118,8 @@ public class Fragment_Mine extends BaseFragment {
                 mMineImageTouxiang.setImageDrawable(ciDrawable);
             }
         });
-
+        Log.i("name_______",mShared.getString("names",""));
+        name.setText(mShared.getString("names",""));
         getInfo();
     }
     private void getInfo() {

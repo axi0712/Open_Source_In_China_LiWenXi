@@ -262,4 +262,24 @@ public class NewsModelImple implements INewModel {
         ParsingFactory.initParsing().getMove_Zan(tweetid,uid,owenrOfTweet, callback);
 
     }
+
+    @Override
+    public void move_UnZan(String tweetid, String uid, String owenrOfTweet, MyCallBack callback) {
+        Map<String,String> params = new HashMap<>();
+        params.put("tweetid",tweetid);
+        params.put("uid",uid);
+        params.put("ownerOfTweet",owenrOfTweet);
+        ParsingFactory.initParsing().getMove_UnZan(tweetid,uid,owenrOfTweet, callback);
+    }
+
+    @Override
+    public void move_PinLun(String id, String uid, String content, MyCallBack callback) {
+        Map<String,String> params = new HashMap<>();
+        params.put("catalog",Urls.CATALOG_MOVE);
+        params.put("id",id);
+        params.put("uid",uid);
+        params.put("content",content);
+        params.put("isPostToMyZone",Urls.MOVE_ZHUANFA);
+        ParsingFactory.initParsing().getMove_PINlUN(Urls.CATALOG_MOVE,id,uid,content,Urls.MOVE_ZHUANFA, callback);
+    }
 }

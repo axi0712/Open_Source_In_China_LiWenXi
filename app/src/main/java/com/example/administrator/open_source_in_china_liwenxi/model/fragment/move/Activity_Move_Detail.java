@@ -6,6 +6,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -32,7 +33,7 @@ public class Activity_Move_Detail extends BaseActivity{
     private TextView mMoveDetailZan;
     private TabLayout mMoveDetailTab;
     private ViewPager mMoveDetailViewPager;
-
+    private ImageView mBigImage;
     private void assignViews() {
         mFraMoveDetailLin = (LinearLayout) findViewById(R.id.fra_move_detail_lin);
         mFraNewsBlogCanel = (ImageView) findViewById(R.id.fra_news_blog_canel);
@@ -45,6 +46,7 @@ public class Activity_Move_Detail extends BaseActivity{
         mMoveDetailZan = (TextView) findViewById(R.id.move_detail_zan);
         mMoveDetailTab = (TabLayout) findViewById(R.id.move_detail_tab);
         mMoveDetailViewPager = (ViewPager) findViewById(R.id.move_detail_viewPager);
+        mBigImage = (ImageView) findViewById(R.id.move_detail_BigImage);
     }
 
     @Override
@@ -73,7 +75,9 @@ assignViews();
         mMoveDetailsBody.setText(share.getString("body",""));
         mMoveDetailsTitle.setText(share.getString("name",""));
         mMoveDetailTime.setText(share.getString("time",""));
+        mMoveDetailZan.setText(share.getString("zan",""));
        String image = share.getString("images","");
+        Log.i("foodsviodsoivoi",image);
         Glide.with(this).load(image).asBitmap().centerCrop().into(new BitmapImageViewTarget(mMoveDetailsImage) {
             @Override
             protected void setResource(Bitmap resource) {
@@ -82,5 +86,7 @@ assignViews();
                 mMoveDetailsImage.setImageDrawable(ciDrawable);
             }
         });
+        String BigImage = share.getString("BigImage","");
+        Glide.with(this).load(BigImage).diskCacheStrategy(DiskCacheStrategy.ALL).into(mBigImage);
     }
 }

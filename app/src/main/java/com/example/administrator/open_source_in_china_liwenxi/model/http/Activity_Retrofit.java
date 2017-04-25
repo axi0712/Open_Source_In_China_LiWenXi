@@ -210,7 +210,9 @@ public class Activity_Retrofit implements IHTPP {
     @Override
     public void getNew_Move(String uid, String pageIndex, String pageSize, final MyCallBack callback) {
         RetrofitInterface inter = re.create(RetrofitInterface.class);
-        Call<ResponseBody> call = inter.getParsingNew_Move(uid, pageIndex, pageSize);
+        SharedPreferences sharedPreferences = App.base.getSharedPreferences("data",Context.MODE_PRIVATE);
+
+        Call<ResponseBody> call = inter.getParsingNew_Move(sharedPreferences.getString("cookie",""),uid, pageIndex, pageSize);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, final Response<ResponseBody> response) {
@@ -243,7 +245,8 @@ public class Activity_Retrofit implements IHTPP {
     @Override
     public void getMine_Move(String uid, String pageIndex, String pageSize, final MyCallBack callback) {
         RetrofitInterface inter = re.create(RetrofitInterface.class);
-        Call<ResponseBody> call = inter.getParsingMine_Move(uid, pageIndex, pageSize);
+        final SharedPreferences sharedPreferences = App.base.getSharedPreferences("data",Context.MODE_PRIVATE);
+        Call<ResponseBody> call = inter.getParsingMine_Move(sharedPreferences.getString("cookie",""),uid, pageIndex, pageSize);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, final Response<ResponseBody> response) {
@@ -276,7 +279,8 @@ public class Activity_Retrofit implements IHTPP {
     @Override
     public void getHot_Move(String uid, String pageIndex, String pageSize, final MyCallBack callback) {
         RetrofitInterface inter = re.create(RetrofitInterface.class);
-        Call<ResponseBody> call = inter.getParsingHot_Move(uid, pageIndex, pageSize);
+        SharedPreferences sharedPreferences = App.base.getSharedPreferences("data",Context.MODE_PRIVATE);
+        Call<ResponseBody> call = inter.getParsingHot_Move(sharedPreferences.getString("cookie",""),uid, pageIndex, pageSize);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, final Response<ResponseBody> response) {
@@ -911,6 +915,74 @@ public class Activity_Retrofit implements IHTPP {
         Call<ResponseBody> call = inter.getMove_Zan(sharedPreferences.getString("cookie",""),tweetid,uid,ownerOfTweet);
             call.enqueue(new Callback<ResponseBody>() {
                 @Override
+            public void onResponse(Call<ResponseBody> call, final Response<ResponseBody> response) {
+//                  saveCookie(response);
+                final String result;
+                try {
+                    result = response.body().string();
+                    App.base.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            //触发请求成功的回调
+                            callback.onSuccess(result);
+
+                        }
+                    });
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                callback.onErro(t.getMessage());
+            }
+        });
+    }
+
+    @Override
+    public void getMove_UnZan(String tweetid, String uid, String ownerOfTweet,final MyCallBack callback) {
+        RetrofitInterface inter = re.create(RetrofitInterface.class);
+        SharedPreferences sharedPreferences = App.base.getSharedPreferences("data",Context.MODE_PRIVATE);
+        Call<ResponseBody> call = inter.getMove_UnZan(sharedPreferences.getString("cookie",""),tweetid,uid,ownerOfTweet);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, final Response<ResponseBody> response) {
+//                  saveCookie(response);
+                final String result;
+                try {
+                    result = response.body().string();
+                    App.base.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            //触发请求成功的回调
+                            callback.onSuccess(result);
+
+                        }
+                    });
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                callback.onErro(t.getMessage());
+            }
+        });
+    }
+
+    @Override
+    public void getMove_PINlUN(String catalog, String id, String uid, String content, String isPostToMyZone, final MyCallBack callback) {
+        RetrofitInterface inter = re.create(RetrofitInterface.class);
+        SharedPreferences sharedPreferences = App.base.getSharedPreferences("data",Context.MODE_PRIVATE);
+        Call<ResponseBody> call = inter.getMove_PINGLUN(sharedPreferences.getString("cookie",""),catalog,id,uid,content,isPostToMyZone);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
             public void onResponse(Call<ResponseBody> call, final Response<ResponseBody> response) {
 //                  saveCookie(response);
                 final String result;

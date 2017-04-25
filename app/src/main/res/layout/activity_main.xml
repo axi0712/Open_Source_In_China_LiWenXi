@@ -63,6 +63,7 @@
             android:checked="true"
             android:drawableTop="@drawable/synthesize"
             android:gravity="center"
+            android:layout_gravity="center_vertical"
             android:text="综合"
             android:textColor="@drawable/synthesize_text" />
 
@@ -75,6 +76,7 @@
             android:drawableTop="@drawable/move"
             android:gravity="center"
             android:text="动弹"
+            android:layout_gravity="center_vertical"
             android:textColor="@drawable/synthesize_text" />
 
         <RadioButton
@@ -96,6 +98,8 @@
             android:drawableTop="@drawable/discover"
             android:gravity="center"
             android:text="发现"
+            android:layout_gravity="center_vertical"
+
             android:textColor="@drawable/synthesize_text" />
 
         <RadioButton
@@ -107,6 +111,8 @@
             android:drawableTop="@drawable/mine"
             android:gravity="center"
             android:text="我的"
+            android:layout_gravity="center_vertical"
+
             android:textColor="@drawable/synthesize_text" />
 
     </RadioGroup>

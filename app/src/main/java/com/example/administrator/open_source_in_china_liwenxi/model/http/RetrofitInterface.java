@@ -25,11 +25,11 @@ public interface RetrofitInterface {
     @GET(Urls.RECOMMED)
     Call<ResponseBody> getParsingRecommed(@Query("type")String type, @Query("pageIndex")String pageIndex, @Query("pageSize")String pageSize);
     @GET(Urls.NEW_MOVE)
-    Call<ResponseBody> getParsingNew_Move(@Query("uid")String uid, @Query("pageIndex")String pageIndex, @Query("pageSize")String pageSize);
+    Call<ResponseBody> getParsingNew_Move(@Header("cookie") String str,@Query("uid")String uid, @Query("pageIndex")String pageIndex, @Query("pageSize")String pageSize);
     @GET(Urls.NEW_MOVE)
-    Call<ResponseBody> getParsingMine_Move(@Query("uid")String uid, @Query("pageIndex")String pageIndex, @Query("pageSize")String pageSize);
+    Call<ResponseBody> getParsingMine_Move(@Header("cookie") String str,@Query("uid")String uid, @Query("pageIndex")String pageIndex, @Query("pageSize")String pageSize);
     @GET(Urls.NEW_MOVE)
-    Call<ResponseBody> getParsingHot_Move(@Query("uid")String uid, @Query("pageIndex")String pageIndex, @Query("pageSize")String pageSize);
+    Call<ResponseBody> getParsingHot_Move(@Header("cookie") String str,@Query("uid")String uid, @Query("pageIndex")String pageIndex, @Query("pageSize")String pageSize);
     @GET(Urls.DETAIL)
     Call<ResponseBody> getParsingDetail(@Query("id") String id);
     @GET(Urls.DETAIL_BLOG)
@@ -70,6 +70,10 @@ public interface RetrofitInterface {
     Call<ResponseBody> getActivities(@Query("uid")String uid,@Query("pageIndex")String pageIndex,@Query("pageSize")String pageSize);
     @GET(Urls.MOVE_ZAN)
     Call<ResponseBody> getMove_Zan(@Header("cookie")String cookie,@Query("tweetid")String tweetid,@Query("uid")String uid,@Query("ownerOfTweet")String ownerOfTweet);
+    @GET(Urls.MOVE_UNZAN)
+    Call<ResponseBody> getMove_UnZan(@Header("cookie")String cookie,@Query("tweetid")String tweetid,@Query("uid")String uid,@Query("ownerOfTweet")String ownerOfTweet);
+    @GET(Urls.MOVE_SEND)
+    Call<ResponseBody> getMove_PINGLUN(@Header("cookie")String cookie,@Query("catalog")String catalog,@Query("id")String id,@Query("uid")String uid,@Query("content") String content,@Query("isPostToMyZone")String isPost);
 
 
 }

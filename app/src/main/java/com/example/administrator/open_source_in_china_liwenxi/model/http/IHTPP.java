@@ -32,6 +32,8 @@ public interface IHTPP {
     void getSend_Move(String uid,String msg,String img,String amr,MyCallBack callback);
     void getActivities(String uid,String pageIndex,String pageSize,MyCallBack callback);
     void getMove_Zan(String tweetid,String uid,String ownerOfTweet ,MyCallBack callback);
+    void getMove_UnZan(String tweetid,String uid,String ownerOfTweet ,MyCallBack callback);
+    void getMove_PINlUN(String catalog,String id,String uid ,String content,String isPostToMyZone, MyCallBack callback);
     void post();
     void load();
 

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.androidkun.PullToRefreshRecyclerView;
 import com.androidkun.callback.PullToRefreshListener;
@@ -24,34 +23,31 @@ import java.util.ArrayList;
 import static android.content.Context.MODE_PRIVATE;
 
 /**
- * Created by Administrator on 2017/4/13 0013.
+ * Created by Administrator on 2017/4/17 0017.
  */
 
-public class Fragment_move_News extends BaseFragment {
+public class Fragment_Move_Mine extends BaseFragment {
     private PullToRefreshRecyclerView mView;
     private SharedPreferences mShared;
     private SharedPreferences.Editor mEditor;
-    private ArrayList<Move_NewJavaBean.TweetBean> mList ;
-    private int pageIndex = 0;
+    private ArrayList<Move_NewJavaBean.TweetBean> mList = new ArrayList<>();
+    private int pageIndex = 1;
     private INewModel model = null;
-    private String isLike;
-    private ImageView zanImageView;
-private NewsDongTanAdapter newsDongTanAdapter;
+    private NewsDongTanAdapter newsDongTanAdapter;
     @Override
     protected int layoutId() {
-        return R.layout.fragment_move_point;
+        return R.layout.fragment_move_hot;
     }
 
     @Override
     protected void initView(View view) {
-        mView = (PullToRefreshRecyclerView) view.findViewById(R.id.move_point_recycle);
+        mView = (PullToRefreshRecyclerView) view.findViewById(R.id.move_hot_recycle);
         mShared = getActivity().getSharedPreferences("data", MODE_PRIVATE);
         mEditor = mShared.edit();
-        mList = new ArrayList<>();
-        newsDongTanAdapter = new NewsDongTanAdapter(App.base,mList);
         model = new NewsModelImple();
+        newsDongTanAdapter = new NewsDongTanAdapter(App.base,mList);
 //        pageIndex = mShared.getInt("Index", 1);
-        Log.e("knakn", pageIndex + "");
+        Log.e("knakn",pageIndex+"");
         loadMode();
 
 //        pageIndex++;
@@ -72,15 +68,13 @@ private NewsDongTanAdapter newsDongTanAdapter;
                 mView.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                       pageIndex = 0;
+                        pageIndex = 0;
                         mList.clear();
 //                        for (int i = 1; i <= pageIndex; i++) {
-                            loadMode();
+                        loadMode();
 //                        }
                         mView.setRefreshComplete();
 
-//                        mEditor.putInt("Index", pageIndex);
-//                        mEditor.commit();
                     }
                 }, 2000);
             }
@@ -95,9 +89,6 @@ private NewsDongTanAdapter newsDongTanAdapter;
 
                         loadMode();
                         mView.setLoadMoreComplete();
-//                        mEditor.putInt("Index", pageIndex);
-//                        Log.i("加载", pageIndex + "");
-//                        mEditor.commit();
                     }
                 }, 2000);
             }
@@ -105,7 +96,7 @@ private NewsDongTanAdapter newsDongTanAdapter;
     }
 
     private void loadMode() {
-        model.move_mine(String.valueOf(pageIndex), new MyCallBack() {
+        model.move_hot("0", new MyCallBack() {
             @Override
             public void onErro(String strErro) {
 
@@ -113,16 +104,16 @@ private NewsDongTanAdapter newsDongTanAdapter;
 
             @Override
             public void onSuccess(String strSuccess) {
-                Log.e("shitr", strSuccess);
                 XStream xs = new XStream();
                 xs.alias("oschina", Move_NewJavaBean.class);
-                xs.alias("tweet", Move_NewJavaBean.TweetBean.class);
+                xs.alias("tweet",Move_NewJavaBean.TweetBean.class);
                 xs.alias("user",Move_NewJavaBean.TweetBean.UserBean.class);
                 Move_NewJavaBean homeListBean = (Move_NewJavaBean) xs.fromXML(strSuccess);
                 mList.addAll(homeListBean.getTweets());
-             newsDongTanAdapter.notifyDataSetChanged();
+                newsDongTanAdapter.notifyDataSetChanged();
             }
         });
+
     }
 
     @Override
@@ -137,7 +128,7 @@ private NewsDongTanAdapter newsDongTanAdapter;
 
     @Override
     public void setParams(Bundle bundle) {
-    }
 
+    }
 
 }

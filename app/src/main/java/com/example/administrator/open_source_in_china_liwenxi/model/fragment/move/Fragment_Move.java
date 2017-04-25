@@ -38,14 +38,14 @@ public class Fragment_Move extends BaseFragment {
 
     @Override
     protected void initData() {
-Fragment_move_Hots news = new Fragment_move_Hots();
         Fragment_move_News point = new Fragment_move_News();
-        Fragment_Move_Main hot = new Fragment_Move_Main();
+        Fragment_Move_Mine hot = new Fragment_Move_Mine();
+        Fragment_move_Hots news = new Fragment_move_Hots();
         mFraList.add(point);
         mFraList.add(news);
         mFraList.add(hot);
         mStrList.add("最新动弹");
-        mStrList.add("热门动弹");
+        mStrList.add("热点动弹");
         mStrList.add("我的动弹");
         Fragment_NewsAdapter mAdapter = new Fragment_NewsAdapter(getActivity().getSupportFragmentManager(), mFraList, mStrList);
         mView.setAdapter(mAdapter);

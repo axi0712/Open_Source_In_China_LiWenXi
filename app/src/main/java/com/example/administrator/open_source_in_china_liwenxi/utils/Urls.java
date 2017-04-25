@@ -26,6 +26,10 @@ public class Urls {
     public static final String uid_move_mine = "0";
     //热门动弹
     public static final String uid_move_hot = "-1";
+    //发表评论 动弹
+    public static final String CATALOG_MOVE = "3";
+    //发表评论  是否转发
+    public static final String MOVE_ZHUANFA = "0";
     //发现开源软件 推荐
     public static final String DISCOVER_RECOMMEND_SEARCHTAG = "recommend";
     //发现开源软件最新
@@ -83,6 +87,8 @@ public class Urls {
     public static final String DISCOVER_ACTIVITIES = "action/api/event_list";
     //动弹 点赞
     public static final String MOVE_ZAN = "action/api/tweet_like";
-
-
+    //动弹 取消点赞
+    public static final String MOVE_UNZAN = "action/api/tweet_unlike";
+    //评论动弹
+    public static final String MOVE_SEND = "action/api/comment_pub" ;
 }

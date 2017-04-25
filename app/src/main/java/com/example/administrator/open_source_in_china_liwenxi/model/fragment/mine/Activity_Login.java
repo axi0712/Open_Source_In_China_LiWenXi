@@ -93,7 +93,7 @@ public class Activity_Login extends BaseActivity {
                     Log.i("image++++",loginBean.getUser().getPortrait());
                     Log.i("shji_______",loginBean.getUser().getUid());
                     mEditor.putString("image",loginBean.getUser().getPortrait());
-                    mEditor.putString("name",loginBean.getUser().getName());
+                    mEditor.putString("names",loginBean.getUser().getName());
                     mEditor.putString("uid",loginBean.getUser().getUid());
                     mEditor.commit();
                     finish();

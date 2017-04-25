@@ -51,6 +51,7 @@
             android:layout_weight="1"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:layout_gravity="center"
             android:src="@drawable/compose_toolbar_picture_normal"
             />
         <ImageView
@@ -58,6 +59,7 @@
             android:layout_weight="1"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:layout_gravity="center"
             android:src="@drawable/compose_toolbar_mention_normal"
             />
         <ImageView
@@ -65,6 +67,7 @@
             android:layout_weight="1"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:layout_gravity="center"
             android:src="@drawable/compose_toolbar_trend_normal"
             />
         <ImageView
@@ -72,6 +75,7 @@
             android:layout_weight="1"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:layout_gravity="center"
             android:src="@drawable/compose_toolbar_emoji_normal"
             />
     </LinearLayout>

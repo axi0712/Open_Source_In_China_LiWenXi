@@ -50,8 +50,15 @@
         android:text="body"
         android:id="@+id/move_details_body"
         />
-    <RelativeLayout
+    <ImageView
         android:layout_below="@id/move_details_body"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/move_detail_BigImage"
+        android:src="@mipmap/sea"
+        />
+    <RelativeLayout
+        android:layout_below="@id/move_detail_BigImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         >

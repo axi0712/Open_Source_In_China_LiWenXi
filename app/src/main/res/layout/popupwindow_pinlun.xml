@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:weightSum="10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            android:layout_weight="8"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="发表评论"
+            android:id="@+id/popup_pinlun"
+            android:focusable="true"
+            android:background="@drawable/login_ed"
+            />
+        <Button
+            android:id="@+id/popup_btn_pinlun"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="发表"
+            android:layout_weight="2"
+            />
+    </LinearLayout>
+</LinearLayout>

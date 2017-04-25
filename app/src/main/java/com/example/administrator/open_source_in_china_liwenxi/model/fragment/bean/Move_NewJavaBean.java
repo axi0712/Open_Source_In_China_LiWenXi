@@ -10,6 +10,16 @@ public class Move_NewJavaBean {
 
     private String tweetCount;
     private String pagesize;
+    private String notice;
+
+    public String getNotice() {
+        return notice;
+    }
+
+    public void setNotice(String notice) {
+        this.notice = notice;
+    }
+
     private List<TweetBean> tweets;
 
     public String getTweetCount() {
@@ -50,7 +60,7 @@ public class Move_NewJavaBean {
         private String imgBig;
         private String likeCount;
         private String isLike;
-        private String likeList;
+        private List<UserBean> likeList;
 
         public String getId() {
             return id;
@@ -156,12 +166,42 @@ public class Move_NewJavaBean {
             this.isLike = isLike;
         }
 
-        public String getLikeList() {
+        public List<UserBean> getLikeList() {
             return likeList;
         }
 
-        public void setLikeList(String likeList) {
+        public void setLikeList(List<UserBean> likeList) {
             this.likeList = likeList;
+        }
+
+        public static class UserBean {
+            private String name;
+            private String uid;
+            private String portrait;
+
+            public String getName() {
+                return name;
+            }
+
+            public void setName(String name) {
+                this.name = name;
+            }
+
+            public String getUid() {
+                return uid;
+            }
+
+            public void setUid(String uid) {
+                this.uid = uid;
+            }
+
+            public String getPortrait() {
+                return portrait;
+            }
+
+            public void setPortrait(String portrait) {
+                this.portrait = portrait;
+            }
         }
     }
 }
