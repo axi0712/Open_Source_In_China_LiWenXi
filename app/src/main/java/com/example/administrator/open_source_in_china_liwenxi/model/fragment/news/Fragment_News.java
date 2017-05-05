@@ -81,10 +81,36 @@ public class Fragment_News extends BaseFragment {
         mNewsTab.setupWithViewPager(mView);
     }
 
+//    @Override
+//    protected void updateTitleBar() {
+//        if (App.base instanceof MainActivity)
+//            ((MainActivity) App.base).getTitlt().setText("综合");
+//    }
+@Override
+protected void updateTitleBar() {
+
+    if (App.base instanceof MainActivity) {
+        //显示
+        ((MainActivity) App.base).getTitlt().setVisibility(View.VISIBLE);
+        ((MainActivity) App.base).getmMainRela().setVisibility(View.VISIBLE);
+
+    }
+    if (App.base instanceof MainActivity) {
+        ((MainActivity) App.base).getTitlt().setText("综合");
+    }
+
+}
+
     @Override
-    protected void updateTitleBar() {
-        if (App.base instanceof MainActivity)
-            ((MainActivity) App.base).getTitlt().setText("综合");
+    public void onShow() {
+        super.onShow();
+        updateTitleBar();
+    }
+
+    @Override
+    public void onHidden() {
+        super.onHidden();
+        updateTitleBar();
     }
 
     @Override

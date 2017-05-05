@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:text="清除历史记录"
         android:textSize="30sp"
+        android:gravity="center"
         android:id="@+id/fragment_search_listView_clear"
         />
 </LinearLayout>

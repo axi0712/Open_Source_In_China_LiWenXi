@@ -1,5 +1,8 @@
 package com.example.administrator.open_source_in_china_liwenxi.model.fragment.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
 /**
@@ -8,8 +11,10 @@ import java.util.List;
 
 public class Move_NewJavaBean {
 
+
     private String tweetCount;
     private String pagesize;
+    private List<TweetBean> tweets;
     private String notice;
 
     public String getNotice() {
@@ -19,8 +24,6 @@ public class Move_NewJavaBean {
     public void setNotice(String notice) {
         this.notice = notice;
     }
-
-    private List<TweetBean> tweets;
 
     public String getTweetCount() {
         return tweetCount;
@@ -174,7 +177,7 @@ public class Move_NewJavaBean {
             this.likeList = likeList;
         }
 
-        public static class UserBean {
+        public static class UserBean implements Parcelable {
             private String name;
             private String uid;
             private String portrait;
@@ -202,6 +205,40 @@ public class Move_NewJavaBean {
             public void setPortrait(String portrait) {
                 this.portrait = portrait;
             }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+                dest.writeString(this.name);
+                dest.writeString(this.uid);
+                dest.writeString(this.portrait);
+            }
+
+            public UserBean() {
+            }
+
+            protected UserBean(Parcel in) {
+                this.name = in.readString();
+                this.uid = in.readString();
+                this.portrait = in.readString();
+            }
+
+            public static final Parcelable.Creator<UserBean> CREATOR = new Parcelable.Creator<UserBean>() {
+                @Override
+                public UserBean createFromParcel(Parcel source) {
+                    return new UserBean(source);
+                }
+
+                @Override
+                public UserBean[] newArray(int size) {
+                    return new UserBean[size];
+                }
+            };
         }
     }
+
 }

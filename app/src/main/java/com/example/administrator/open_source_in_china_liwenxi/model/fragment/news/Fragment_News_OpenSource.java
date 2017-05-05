@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -131,6 +132,8 @@ public class Fragment_News_OpenSource extends BaseFragment {
     private void recyclerView() {
         LinearLayoutManager layout = new LinearLayoutManager(getActivity().getApplicationContext());
         layout.setOrientation(LinearLayoutManager.VERTICAL);
+//分割线
+        mView.addItemDecoration(new DividerItemDecoration(App.base,DividerItemDecoration.VERTICAL));
 
         mView.setLayoutManager(layout);
         mView.setPullRefreshEnabled(true);//下拉刷新
@@ -140,20 +143,20 @@ public class Fragment_News_OpenSource extends BaseFragment {
         mView.setPullToRefreshListener(new PullToRefreshListener() {
             @Override
             public void onRefresh() {
-                mView.postDelayed(new Runnable() {
+                mView.post(new Runnable() {
                     @Override
                     public void run() {
-                        mView.setRefreshComplete();
+                        pageIndex = 0;
                         mList.clear();
-                        for (int i = 1; i <= pageIndex; i++) {
-                            loadMode();
-                        }
+//                        for (int i = 1; i <= pageIndex; i++) {
+                        loadMode();
+//                        }
+                        mView.setRefreshComplete();
 
-
-//                        mEditor.putInt("Index",pageIndex);
+//                        mEditor.putInt("Index", pageIndex);
 //                        mEditor.commit();
                     }
-                }, 2000);
+                });
             }
 
             @Override
@@ -162,12 +165,13 @@ public class Fragment_News_OpenSource extends BaseFragment {
                     @Override
                     public void run() {
                         pageIndex++;
-                        mView.setLoadMoreComplete();
+
 
                         loadMode();
-                        mEditor.putInt("Index", pageIndex);
-                        Log.i("加载", pageIndex + "");
-                        mEditor.commit();
+                        mView.setLoadMoreComplete();
+//                        mEditor.putInt("Index", pageIndex);
+//                        Log.i("加载", pageIndex + "");
+//                        mEditor.commit();
                     }
                 }, 2000);
             }
@@ -292,8 +296,10 @@ public class Fragment_News_OpenSource extends BaseFragment {
     public void setUserVisibleHint(boolean  isVisibleToUser) {
             super.setUserVisibleHint(isVisibleToUser);
             if (isVisibleToUser) {
+
                 Log.e("显示", "显示");
-//c
+//
+
                 mHand.sendEmptyMessageDelayed(CODE_START, 1000);
 
         } else {

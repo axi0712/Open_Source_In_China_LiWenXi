@@ -1,5 +1,8 @@
 package com.example.administrator.open_source_in_china_liwenxi.model.http;
 
+import java.io.File;
+import java.util.Map;
+
 /**
  * Created by Administrator on 2017/4/21 0021.
  */
@@ -34,8 +37,13 @@ public interface IHTPP {
     void getMove_Zan(String tweetid,String uid,String ownerOfTweet ,MyCallBack callback);
     void getMove_UnZan(String tweetid,String uid,String ownerOfTweet ,MyCallBack callback);
     void getMove_PINlUN(String catalog,String id,String uid ,String content,String isPostToMyZone, MyCallBack callback);
+    void getActivities_detail(String id, MyCallBack callback);
+    void detail_pinlun(String catalog,String id,String pageIndex,String pageSize,MyCallBack callback);
+    void mine_fensi(String uid,String relation,String pageIndex,String pageSize,MyCallBack callback);
+    void mine_guanzhu(String uid,String relation,String pageIndex,String pageSize,MyCallBack callback);
+    void yaoyiyao(MyCallBack callback);
     void post();
     void load();
-
+    void Filed(Map<String,String> map,File file, String filekey,MyCallBack callBack);
 
 }

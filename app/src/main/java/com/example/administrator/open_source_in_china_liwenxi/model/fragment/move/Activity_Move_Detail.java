@@ -1,8 +1,10 @@
 package com.example.administrator.open_source_in_china_liwenxi.model.fragment.move;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v4.view.ViewPager;
@@ -16,6 +18,11 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.example.administrator.open_source_in_china_liwenxi.R;
 import com.example.administrator.open_source_in_china_liwenxi.base.BaseActivity;
+import com.example.administrator.open_source_in_china_liwenxi.model.fragment.bean.Move_NewJavaBean;
+import com.example.administrator.open_source_in_china_liwenxi.model.fragment.news.Fragment_NewsAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Administrator on 2017/4/23 0023.
@@ -31,9 +38,14 @@ public class Activity_Move_Detail extends BaseActivity{
     private TextView mMoveDetailZhunfa;
     private TextView mMoveDetailPinlun;
     private TextView mMoveDetailZan;
-    private TabLayout mMoveDetailTab;
-    private ViewPager mMoveDetailViewPager;
+    private TabLayout mNewsTab;
+    private ViewPager mView;
     private ImageView mBigImage;
+    private SharedPreferences share;
+    private List<Fragment> mFraList = new ArrayList<>();
+    private List<String> mStrList = new ArrayList<>();
+    private Fragment_Detail_Zan blog;
+
     private void assignViews() {
         mFraMoveDetailLin = (LinearLayout) findViewById(R.id.fra_move_detail_lin);
         mFraNewsBlogCanel = (ImageView) findViewById(R.id.fra_news_blog_canel);
@@ -44,8 +56,8 @@ public class Activity_Move_Detail extends BaseActivity{
         mMoveDetailZhunfa = (TextView) findViewById(R.id.move_detail_zhunfa);
         mMoveDetailPinlun = (TextView) findViewById(R.id.move_detail_pinlun);
         mMoveDetailZan = (TextView) findViewById(R.id.move_detail_zan);
-        mMoveDetailTab = (TabLayout) findViewById(R.id.move_detail_tab);
-        mMoveDetailViewPager = (ViewPager) findViewById(R.id.move_detail_viewPager);
+        mNewsTab = (TabLayout) findViewById(R.id.move_detail_tab);
+        mView = (ViewPager) findViewById(R.id.move_detail_viewPager);
         mBigImage = (ImageView) findViewById(R.id.move_detail_BigImage);
     }
 
@@ -71,12 +83,35 @@ assignViews();
 
     @Override
     protected void initDatas() {
-        SharedPreferences share = getSharedPreferences("data",MODE_PRIVATE);
+        share = getSharedPreferences("data",MODE_PRIVATE);
+        Fragment_Detail_Pinlun soft = new Fragment_Detail_Pinlun();
+        blog = new Fragment_Detail_Zan();
+        initChuan();
+
+        mFraList.add(soft);
+        mFraList.add(blog);
+
+        mStrList.add("评论");
+        mStrList.add("赞");
+
+        mNewsTab.setTabMode(TabLayout.MODE_FIXED);
+        Fragment_NewsAdapter mAdapter = new Fragment_NewsAdapter(getSupportFragmentManager(), mFraList, mStrList);
+        mView.setAdapter(mAdapter);
+
+        mNewsTab.setupWithViewPager(mView);
+
+    }
+    //TODO 传值
+    private void initChuan() {
+        Intent in = getIntent();
+        ArrayList<Move_NewJavaBean.TweetBean.UserBean> list= in.getParcelableArrayListExtra("listlk");
+        blog.setmList(list);
+
         mMoveDetailsBody.setText(share.getString("body",""));
         mMoveDetailsTitle.setText(share.getString("name",""));
         mMoveDetailTime.setText(share.getString("time",""));
         mMoveDetailZan.setText(share.getString("zan",""));
-       String image = share.getString("images","");
+        String image = share.getString("TouXiang","");
         Log.i("foodsviodsoivoi",image);
         Glide.with(this).load(image).asBitmap().centerCrop().into(new BitmapImageViewTarget(mMoveDetailsImage) {
             @Override

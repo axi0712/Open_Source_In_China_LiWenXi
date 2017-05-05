@@ -7,7 +7,7 @@
         android:weightSum="7"
         android:background="@drawable/icon_record_layout_nor"
         android:layout_width="match_parent"
-        android:layout_height="35dp">
+        android:layout_height="45dp">
         <ImageView
             android:layout_gravity="center"
             android:layout_weight="1"
@@ -24,6 +24,7 @@
             android:layout_weight="5"
             android:gravity="center"
             android:textColor="#ffffff"
+            android:layout_gravity="center_vertical"
             />
 
     </LinearLayout>

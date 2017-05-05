@@ -6,6 +6,7 @@ import android.os.Process;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -42,7 +43,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     private FragmentManager man;
     private SharedPreferences mShared;
     private SharedPreferences.Editor editor;
-
+    private long mExitTime;
     public RelativeLayout getmMainRela() {
         return mMainRela;
     }
@@ -54,7 +55,6 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     protected int getLayout() {
         return R.layout.activity_main;
     }
-
     @Override
     protected void getID() {
         assignViews();
@@ -163,5 +163,19 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
             }
         }
 
+    }
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if ((System.currentTimeMillis() - mExitTime) > 2000) {
+                Object mHelperUtils;
+                Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                mExitTime = System.currentTimeMillis();
+
+            } else {
+                finish();
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

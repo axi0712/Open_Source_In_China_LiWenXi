@@ -20,7 +20,7 @@ public class FragmentBuilder {
         init();
     }
 
-    ;
+
     private static FragmentBuilder fragmentBuilder;
 
     public synchronized static FragmentBuilder getInstance() {

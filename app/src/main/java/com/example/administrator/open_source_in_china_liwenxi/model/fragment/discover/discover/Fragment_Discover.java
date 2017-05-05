@@ -66,6 +66,13 @@ public class Fragment_Discover extends BaseFragment {
         mDiscoverScan = (RelativeLayout) view.findViewById(R.id.discover_scan);
         mScan = (ImageView) view.findViewById(R.id.scan);
         mDiscoverShake = (RelativeLayout) view.findViewById(R.id.discover_shake);
+        mDiscoverShake.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent in= new Intent(App.base,Activity_YaoYao.class);
+                startActivity(in);
+            }
+        });
         mShake = (ImageView) view.findViewById(R.id.shake);
         mDiscoverNearby = (RelativeLayout) view.findViewById(R.id.discover_nearby);
         mNearby = (ImageView) view.findViewById(R.id.nearby);
@@ -85,12 +92,37 @@ public class Fragment_Discover extends BaseFragment {
 
     }
 
-    @Override
-    protected void updateTitleBar() {
-        if(App.base instanceof MainActivity)
-            ((MainActivity)App.base).getTitlt().setText("发现");
+//    @Override
+//    protected void updateTitleBar() {
+//        if(App.base instanceof MainActivity)
+//            ((MainActivity)App.base).getTitlt().setText("发现");
+//    }
+@Override
+protected void updateTitleBar() {
+
+    if (App.base instanceof MainActivity) {
+        //显示
+        ((MainActivity) App.base).getTitlt().setVisibility(View.VISIBLE);
+        ((MainActivity) App.base).getmMainRela().setVisibility(View.VISIBLE);
+
+    }
+    if (App.base instanceof MainActivity) {
+        ((MainActivity) App.base).getTitlt().setText("发现");
     }
 
+
+}
+    @Override
+    public void onShow() {
+        super.onShow();
+        updateTitleBar();
+    }
+
+    @Override
+    public void onHidden() {
+        super.onHidden();
+        updateTitleBar();
+    }
     @Override
     public void setParams(Bundle bundle) {
 

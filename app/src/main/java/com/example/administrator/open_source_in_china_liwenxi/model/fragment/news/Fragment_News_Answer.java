@@ -6,11 +6,11 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.androidkun.PullToRefreshRecyclerView;
 import com.androidkun.adapter.BaseAdapter;
@@ -18,9 +18,11 @@ import com.androidkun.adapter.ViewHolder;
 import com.androidkun.callback.PullToRefreshListener;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.example.administrator.open_source_in_china_liwenxi.App;
 import com.example.administrator.open_source_in_china_liwenxi.R;
 import com.example.administrator.open_source_in_china_liwenxi.base.BaseFragment;
-import com.example.administrator.open_source_in_china_liwenxi.base.News_AnswerJavaBean;
+import com.example.administrator.open_source_in_china_liwenxi.model.adapter.MyContentLinearLayoutManager;
+import com.example.administrator.open_source_in_china_liwenxi.model.fragment.bean.News_AnswerJavaBean;
 import com.example.administrator.open_source_in_china_liwenxi.model.INewModel;
 import com.example.administrator.open_source_in_china_liwenxi.model.NewsModelImple;
 import com.example.administrator.open_source_in_china_liwenxi.model.http.MyCallBack;
@@ -65,12 +67,15 @@ public class Fragment_News_Answer extends BaseFragment {
         LinearLayoutManager layout = new LinearLayoutManager(getActivity().getApplicationContext());
         layout.setOrientation(LinearLayoutManager.VERTICAL);
 
-        mView.setLayoutManager(layout);
+        mView.setLayoutManager(new MyContentLinearLayoutManager(mView.getContext()));
         Recycler();
 
     }
 
     private void Recycler() {
+        //分割线
+        mView.addItemDecoration(new DividerItemDecoration(App.base,DividerItemDecoration.VERTICAL));
+
         mView.setPullRefreshEnabled(true);//下拉刷新
         mView.setLoadingMoreEnabled(true);//上拉加载
         mView.displayLastRefreshTime(true);//显示上次刷新的时间
@@ -78,36 +83,37 @@ public class Fragment_News_Answer extends BaseFragment {
         mView.setPullToRefreshListener(new PullToRefreshListener() {
             @Override
             public void onRefresh() {
-                mView.postDelayed(new Runnable() {
+                mView.post(new Runnable() {
                     @Override
                     public void run() {
-                        mView.setRefreshComplete();
+                        pageIndex = 0;
                         mList.clear();
-                        for(int i = 1;i<=pageIndex;i++){
-                            loadMode();
-                        }
+//                        for (int i = 1; i <= pageIndex; i++) {
+                        loadMode();
+//                        }
+                        mView.setRefreshComplete();
 
-
-                        mEditor.putInt("Index",pageIndex);
-                        mEditor.commit();
+//                        mEditor.putInt("Index", pageIndex);
+//                        mEditor.commit();
                     }
-                }, 2000);
+                });
             }
 
             @Override
             public void onLoadMore() {
-                mView.postDelayed(new Runnable() {
+                mView.post(new Runnable() {
                     @Override
                     public void run() {
                         pageIndex++;
-                        mView.setLoadMoreComplete();
+
 
                         loadMode();
-                        mEditor.putInt("Index",pageIndex);
-                        Log.i("加载",pageIndex+"");
-                        mEditor.commit();
+                        mView.setLoadMoreComplete();
+//                        mEditor.putInt("Index", pageIndex);
+//                        Log.i("加载", pageIndex + "");
+//                        mEditor.commit();
                     }
-                }, 2000);
+                });
             }
         });
     }

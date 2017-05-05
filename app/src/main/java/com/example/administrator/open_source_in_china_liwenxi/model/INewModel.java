@@ -13,7 +13,7 @@ public interface INewModel {
     void answer(String pageIndex,MyCallBack callback);
     void recommed(String pageIndex,MyCallBack callback);
     void move_new(String pageIndex,MyCallBack callback);
-    void move_mine(String pageIndex,MyCallBack callback);
+    void move_mine(String id,String pageIndex,MyCallBack callback);
     void move_hot(String pageIndex,MyCallBack callback);
     void getParsing(String id,MyCallBack callback);
     void getParsing_Blog(String id,MyCallBack callback);
@@ -36,4 +36,9 @@ public interface INewModel {
     void move_zan(String tweetid,String uid,String owenrOfTweet,MyCallBack callback);
     void move_UnZan(String tweetid,String uid,String owenrOfTweet,MyCallBack callback);
     void move_PinLun(String id,String uid,String content,MyCallBack callback);
+    void activities_detail(String id,MyCallBack callback);
+    void detail_PinLun(String id,String pageIndex,MyCallBack callback);
+    void mine_fensi(String uid,String pageIndex,MyCallBack callback);
+    void mine_guanzhu(String uid,String pageIndex,MyCallBack callback);
+    void yaoyiyao(MyCallBack callback);
 }

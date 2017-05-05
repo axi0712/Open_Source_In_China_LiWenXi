@@ -75,12 +75,12 @@ public class NewsModelImple implements INewModel {
 
 
     @Override
-    public void move_mine(String pageIndex, MyCallBack callback) {
+    public void move_mine(String id,String pageIndex, MyCallBack callback) {
         Map<String,String> params = new HashMap<>();
-        params.put("uid",Urls.uid_move_mine);
+        params.put("uid",id);
         params.put("pageIndex",pageIndex);
         params.put("pageSize", Urls.pageSize);
-        ParsingFactory.initParsing().getMine_Move( Urls.uid_move_mine, pageIndex, Urls.pageSize, callback);
+        ParsingFactory.initParsing().getMine_Move( id, pageIndex, Urls.pageSize, callback);
     }
 
     @Override
@@ -162,7 +162,7 @@ public class NewsModelImple implements INewModel {
         params.put("uid",Urls.uid_move_hot);
         params.put("pageIndex",pageIndex);
         params.put("pageSize", Urls.pageSize);
-        ParsingFactory.initParsing().getMine_Move( Urls.uid_move_hot, pageIndex, Urls.pageSize, callback);
+        ParsingFactory.initParsing().getHot_Move( Urls.uid_move_hot, pageIndex, Urls.pageSize, callback);
     }
 
     @Override
@@ -281,5 +281,50 @@ public class NewsModelImple implements INewModel {
         params.put("content",content);
         params.put("isPostToMyZone",Urls.MOVE_ZHUANFA);
         ParsingFactory.initParsing().getMove_PINlUN(Urls.CATALOG_MOVE,id,uid,content,Urls.MOVE_ZHUANFA, callback);
+    }
+
+    @Override
+    public void activities_detail(String id, MyCallBack callback) {
+        Map<String,String> params = new HashMap<>();
+        params.put("id",id);
+        ParsingFactory.initParsing().getActivities_detail(id,callback);
+
+    }
+
+    @Override
+    public void detail_PinLun(String id, String pageIndex, MyCallBack callback) {
+        Map<String,String> params = new HashMap<>();
+        params.put("catalog",Urls.DETAIL_PINLUN);
+        params.put("id",id);
+        params.put("pageIndex",pageIndex);
+        params.put("pageSize",Urls.pageSize);
+        ParsingFactory.initParsing().detail_pinlun(Urls.DETAIL_PINLUN,id,pageIndex,Urls.pageSize,callback);
+    }
+
+    @Override
+    public void mine_fensi(String uid, String pageIndex, MyCallBack callback) {
+        Map<String,String> params = new HashMap<>();
+        params.put("id",uid);
+        params.put("relation",Urls.MINE_FENSI_RELATION);
+        params.put("pageIndex",pageIndex);
+        params.put("pageSize",Urls.pageSize);
+        ParsingFactory.initParsing().mine_fensi(uid,Urls.MINE_FENSI_RELATION,pageIndex,Urls.pageSize,callback);
+
+    }
+
+    @Override
+    public void mine_guanzhu(String uid, String pageIndex, MyCallBack callback) {
+        Map<String,String> params = new HashMap<>();
+        params.put("id",uid);
+        params.put("relation","1");
+        params.put("pageIndex",pageIndex);
+        params.put("pageSize",Urls.pageSize);
+        ParsingFactory.initParsing().mine_guanzhu(uid,"1",pageIndex,Urls.pageSize,callback);
+
+    }
+
+    @Override
+    public void yaoyiyao(MyCallBack callback) {
+        ParsingFactory.initParsing().yaoyiyao(callback);
     }
 }

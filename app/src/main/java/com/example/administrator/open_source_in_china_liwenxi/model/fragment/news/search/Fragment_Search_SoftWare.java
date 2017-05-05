@@ -11,12 +11,14 @@ import android.view.View;
 import com.androidkun.PullToRefreshRecyclerView;
 import com.androidkun.adapter.BaseAdapter;
 import com.androidkun.adapter.ViewHolder;
+import com.androidkun.callback.PullToRefreshListener;
 import com.example.administrator.open_source_in_china_liwenxi.App;
 import com.example.administrator.open_source_in_china_liwenxi.R;
 import com.example.administrator.open_source_in_china_liwenxi.base.BaseFragment;
-import com.example.administrator.open_source_in_china_liwenxi.model.fragment.bean.Search_SoftWareJavaBean;
 import com.example.administrator.open_source_in_china_liwenxi.model.INewModel;
 import com.example.administrator.open_source_in_china_liwenxi.model.NewsModelImple;
+import com.example.administrator.open_source_in_china_liwenxi.model.adapter.MyContentLinearLayoutManager;
+import com.example.administrator.open_source_in_china_liwenxi.model.fragment.bean.Search_SoftWareJavaBean;
 import com.example.administrator.open_source_in_china_liwenxi.model.http.MyCallBack;
 import com.thoughtworks.xstream.XStream;
 
@@ -63,48 +65,49 @@ public class Fragment_Search_SoftWare extends BaseFragment {
 //        mEditor.commit();
         LinearLayoutManager layout = new LinearLayoutManager(getActivity().getApplicationContext());
         layout.setOrientation(LinearLayoutManager.VERTICAL);
-        mView.setLayoutManager(layout);
+        mView.setLayoutManager(new MyContentLinearLayoutManager(mView.getContext()));
         mView.addItemDecoration(new DividerItemDecoration(App.base, DividerItemDecoration.VERTICAL));
 
-//        mView.setPullRefreshEnabled(true);//下拉刷新
-//        mView.setLoadingMoreEnabled(true);//上拉加载
-//        mView.displayLastRefreshTime(true);//显示上次刷新的时间
-//        //设置刷新回调
-//        mView.setPullToRefreshListener(new PullToRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                mView.postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        mView.setRefreshComplete();
-//                        mList.clear();
-//                        for(int i = 1;i<=pageIndex;i++){
-//                            loadMode();
+        mView.setPullRefreshEnabled(true);//下拉刷新
+        mView.setLoadingMoreEnabled(true);//上拉加载
+        mView.displayLastRefreshTime(true);//显示上次刷新的时间
+        //设置刷新回调
+        mView.setPullToRefreshListener(new PullToRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        pageIndex = 0;
+                        mList.clear();
+//                        for (int i = 1; i <= pageIndex; i++) {
+                        loadMode();
 //                        }
-//
-//
-//                        mEditor.putInt("Index",pageIndex);
+                        mView.setRefreshComplete();
+
+//                        mEditor.putInt("Index", pageIndex);
 //                        mEditor.commit();
-//                    }
-//                }, 2000);
-//            }
-//
-//            @Override
-//            public void onLoadMore() {
-//                mView.postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        pageIndex++;
-//                        mView.setLoadMoreComplete();
-//
-//                        loadMode();
-//                        mEditor.putInt("Index",pageIndex);
-//                        Log.i("加载",pageIndex+"");
+                    }
+                });
+            }
+
+            @Override
+            public void onLoadMore() {
+                mView.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        pageIndex++;
+
+
+                        loadMode();
+                        mView.setLoadMoreComplete();
+//                        mEditor.putInt("Index", pageIndex);
+//                        Log.i("加载", pageIndex + "");
 //                        mEditor.commit();
-//                    }
-//                }, 2000);
-//            }
-//        });
+                    }
+                }, 2000);
+            }
+        });
     }
     private void loadMode() {
         model.search_SoftWare(mShared.getString("name",""),"2", new MyCallBack() {

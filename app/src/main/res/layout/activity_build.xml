@@ -7,7 +7,7 @@
     android:weightSum="7"
     android:background="@drawable/icon_record_layout_nor"
     android:layout_width="match_parent"
-    android:layout_height="35dp">
+    android:layout_height="45dp">
     <ImageView
         android:layout_gravity="center"
         android:layout_weight="1"
@@ -24,6 +24,7 @@
          android:layout_weight="5"
          android:gravity="center"
          android:textColor="#ffffff"
+         android:layout_gravity="center_vertical"
          />
     <TextView
         android:layout_width="wrap_content"
@@ -32,12 +33,13 @@
         android:text="发送"
         android:gravity="center"
         android:textColor="#ffffff"
+        android:layout_gravity="center_vertical"
         />
 </LinearLayout>
     <EditText
         android:layout_below="@id/fra_build_lin"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:id="@+id/fra_build_edit_content"
         android:hint="今天想动弹什么"
         />

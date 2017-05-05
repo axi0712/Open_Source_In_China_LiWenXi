@@ -1,4 +1,4 @@
-package com.example.administrator.open_source_in_china_liwenxi.base;
+package com.example.administrator.open_source_in_china_liwenxi.model.fragment.bean;
 
 import java.util.List;
 

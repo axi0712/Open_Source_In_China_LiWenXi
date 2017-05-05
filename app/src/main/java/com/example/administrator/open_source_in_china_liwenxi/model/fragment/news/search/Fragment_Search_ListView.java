@@ -51,9 +51,11 @@ public class Fragment_Search_ListView extends BaseFragment {
                 name = mShared.getString("name", "");
                 Boolean boo = mDB.deleteRecord();
                 if(boo){
-                    mList = mDB.getDBAll();
-                    mAdapter.setList(mList);
+                    mList.clear();
+                    mList.addAll(mDB.getDBAll());
+//                    mAdapter.setList(mList);
                     mAdapter.notifyDataSetChanged();
+                    mText.setVisibility(View.GONE);
                     Log.i("成功删除",mList.toString());
                 }else{
                     Log.i("失败",mList.toString());
@@ -74,22 +76,29 @@ public class Fragment_Search_ListView extends BaseFragment {
             }
         });
 
-        if(mList!=null){
-            mText.setVisibility(View.VISIBLE);
-            Log.i("隐藏","hidden");
-        }else{
-            mText.setVisibility(View.GONE);
-            Log.i("显示","gone");
-        }
+//        if(mList!=null){
+//            mText.setVisibility(View.VISIBLE);
+//            Log.i("隐藏","hidden");
+//        }else{
+//            mText.setVisibility(View.GONE);
+//            Log.i("显示","gone");
+//        }
     }
 
     @Override
     protected void initData() {
         mList = mDB.getDBAll();
         mAdapter = new MyAdapter();
-        mAdapter.notifyDataSetChanged();
         mFragmentSearchListViewListView.setAdapter(mAdapter);
         Log.i("查询添加-------",mList.toString());
+        if(mList.isEmpty()){
+            mAdapter.notifyDataSetChanged();
+            mText.setVisibility(View.GONE);
+        }else{
+            mFragmentSearchListViewListView.setAdapter(mAdapter);
+            mText.setVisibility(View.VISIBLE);
+            mAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override

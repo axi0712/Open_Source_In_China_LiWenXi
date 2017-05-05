@@ -8,10 +8,15 @@ import android.widget.Toast;
 import com.example.administrator.open_source_in_china_liwenxi.App;
 import com.example.administrator.open_source_in_china_liwenxi.utils.Urls;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.Map;
 import java.util.Set;
 
 import okhttp3.Headers;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -1010,6 +1015,171 @@ public class Activity_Retrofit implements IHTPP {
         });
     }
 
+    @Override
+    public void getActivities_detail(String id,final MyCallBack callback) {
+        RetrofitInterface inter = re.create(RetrofitInterface.class);
+        Call<ResponseBody> call = inter.getActivities_Detail(id);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, final Response<ResponseBody> response) {
+//                  saveCookie(response);
+                final String result;
+                try {
+                    result = response.body().string();
+                    App.base.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            //触发请求成功的回调
+                            callback.onSuccess(result);
+
+                        }
+                    });
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                callback.onErro(t.getMessage());
+            }
+        });
+    }
+
+    @Override
+    public void detail_pinlun(String catalog,String id, String pageIndex, String pageSize,final MyCallBack callback) {
+        RetrofitInterface inter = re.create(RetrofitInterface.class);
+        Call<ResponseBody> call = inter.getDetail_PinLun(catalog,id,pageIndex,pageSize);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, final Response<ResponseBody> response) {
+//                  saveCookie(response);
+                final String result;
+                try {
+                    result = response.body().string();
+                    App.base.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            //触发请求成功的回调
+                            callback.onSuccess(result);
+
+                        }
+                    });
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                callback.onErro(t.getMessage());
+            }
+        });
+    }
+
+    @Override
+    public void mine_fensi(String uid, String relation, String pageIndex, String pageSize,final MyCallBack callback) {
+        RetrofitInterface inter = re.create(RetrofitInterface.class);
+        Call<ResponseBody> call = inter.getMine_FenSi(uid,relation,pageIndex,pageSize);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, final Response<ResponseBody> response) {
+//                  saveCookie(response);
+                final String result;
+                try {
+                    result = response.body().string();
+                    App.base.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            //触发请求成功的回调
+                            callback.onSuccess(result);
+
+                        }
+                    });
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                callback.onErro(t.getMessage());
+            }
+        });
+    }
+
+    @Override
+    public void mine_guanzhu(String uid, String relation, String pageIndex, String pageSize,final MyCallBack callback) {
+        RetrofitInterface inter = re.create(RetrofitInterface.class);
+        Call<ResponseBody> call = inter.getMine_GuanZhu(uid,relation,pageIndex,pageSize);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, final Response<ResponseBody> response) {
+//                  saveCookie(response);
+                final String result;
+                try {
+                    result = response.body().string();
+                    App.base.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            //触发请求成功的回调
+                            callback.onSuccess(result);
+
+                        }
+                    });
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                callback.onErro(t.getMessage());
+            }
+        });
+    }
+
+    @Override
+    public void yaoyiyao(final MyCallBack callback) {
+        RetrofitInterface inter = re.create(RetrofitInterface.class);
+        Call<ResponseBody> call = inter.getYaoYiYao();
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, final Response<ResponseBody> response) {
+//                  saveCookie(response);
+                final String result;
+                try {
+                    result = response.body().string();
+                    App.base.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            //触发请求成功的回调
+                            callback.onSuccess(result);
+
+                        }
+                    });
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                callback.onErro(t.getMessage());
+            }
+        });
+    }
+
 
     @Override
     public void post() {
@@ -1019,6 +1189,39 @@ public class Activity_Retrofit implements IHTPP {
     @Override
     public void load() {
 
+    }
+
+    @Override
+    public void Filed(Map<String, String> map, File file, String filekey, final MyCallBack callBack) {
+        RequestBody fileRequest = RequestBody.create(MediaType.parse("multipart/form-data"),file);
+        MultipartBody.Part part = MultipartBody.Part.createFormData(filekey,file.getName(),fileRequest);
+        RetrofitInterface inter = re.create(RetrofitInterface.class);
+        final SharedPreferences sharedPreferences = App.base.getSharedPreferences("data",Context.MODE_PRIVATE);
+        Call<ResponseBody> call = inter.Filed(sharedPreferences.getString("cookie", ""), map, part);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if(response.isSuccessful()){
+                    try {
+                        callBack.onSuccess(response.body().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        try {
+                            callBack.onErro(response.errorBody().string());
+                        } catch (IOException e1) {
+                            e1.printStackTrace();
+                        }
+                    }
+
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+callBack.onErro(t.getMessage());
+            }
+        });
     }
 
     private static void saveCookie(Response<ResponseBody> response) {

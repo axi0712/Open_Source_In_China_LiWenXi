@@ -21,6 +21,7 @@
             android:layout_height="70dp">
 
             <ImageView
+                android:id="@+id/login_setting"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_margin="10dp"
@@ -53,7 +54,142 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:background="#20CE5B"
+        android:weightSum="4"
+        android:layout_width="match_parent"
+        android:layout_height="80dp">
+        <RelativeLayout
+            android:id="@+id/dongtan_rela"
+            android:gravity="center_vertical"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <TextView
+                android:gravity="center"
+                android:textColor="#000"
+                android:textSize="19sp"
+                android:id="@+id/mine_dongtan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="0"
+                />
 
+            <TextView
+                android:gravity="center"
+                android:layout_below="@id/mine_dongtan"
+                android:id="@+id/mine_dongtan_zi"
+                android:textColor="#000"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:text="  动弹  "
+
+                />
+
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:gravity="center_vertical"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <TextView
+                android:gravity="center"
+                android:textColor="#000"
+                android:textSize="19sp"
+                android:id="@+id/mine_shoucang"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="0"
+                />
+
+            <TextView
+                android:gravity="center"
+                android:layout_below="@id/mine_shoucang"
+                android:id="@+id/mine_shoucang_zi"
+                android:textColor="#000"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:text="  收藏  "
+
+                />
+
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/item_guanzhu_rela"
+            android:gravity="center_vertical"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <TextView
+                android:gravity="center"
+                android:textColor="#000"
+                android:textSize="19sp"
+                android:id="@+id/mine_guanzhu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="0"
+                />
+
+            <TextView
+                android:gravity="center"
+                android:layout_below="@id/mine_guanzhu"
+                android:id="@+id/mine_guanzhu_zi"
+                android:textColor="#000"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:text="  关注  "
+
+                />
+
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/mine_fensi_zong"
+            android:gravity="center_vertical"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <TextView
+                android:gravity="center"
+                android:textColor="#000"
+                android:textSize="19sp"
+                android:id="@+id/mine_fensi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="0"
+                />
+
+            <TextView
+                android:gravity="center"
+                android:layout_below="@id/mine_fensi"
+                android:id="@+id/mine_fensi_zi"
+                android:textColor="#000"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:text="  粉丝  "
+
+                />
+
+
+        </RelativeLayout>
+
+
+
+    </LinearLayout>
     -
 
     <LinearLayout

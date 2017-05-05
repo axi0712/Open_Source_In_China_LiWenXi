@@ -39,8 +39,8 @@ public class Fragment_Move extends BaseFragment {
     @Override
     protected void initData() {
         Fragment_move_News point = new Fragment_move_News();
-        Fragment_Move_Mine hot = new Fragment_Move_Mine();
-        Fragment_move_Hots news = new Fragment_move_Hots();
+        Fragment_Move_Hot news = new Fragment_Move_Hot();
+        Fragment_move_Mines hot = new Fragment_move_Mines();
         mFraList.add(point);
         mFraList.add(news);
         mFraList.add(hot);
@@ -60,10 +60,30 @@ public class Fragment_Move extends BaseFragment {
 
     @Override
     protected void updateTitleBar() {
-        if(App.base instanceof MainActivity)
-            ((MainActivity)App.base).getTitlt().setText("动弹");
+
+            if (App.base instanceof MainActivity) {
+                //显示
+                ((MainActivity) App.base).getTitlt().setVisibility(View.VISIBLE);
+                ((MainActivity) App.base).getmMainRela().setVisibility(View.VISIBLE);
+
+            }
+            if (App.base instanceof MainActivity) {
+                ((MainActivity) App.base).getTitlt().setText("动弹");
+            }
+
+
+    }
+    @Override
+    public void onShow() {
+        super.onShow();
+        updateTitleBar();
     }
 
+    @Override
+    public void onHidden() {
+        super.onHidden();
+        updateTitleBar();
+    }
     @Override
     public void setParams(Bundle bundle) {
         String test = bundle.getString("test");

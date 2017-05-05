@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:id="@+id/fra_news_blog_lin"
+        android:weightSum="7"
+        android:background="@drawable/icon_record_layout_nor"
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+        <ImageView
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/activity_dongtan_canel"
+            android:src="@drawable/ic_diary_back"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="     动弹列表"
+            android:textSize="25sp"
+            android:layout_weight="5"
+            android:textColor="#ffffff"
+            android:layout_gravity="center_vertical"
+            />
+
+    </LinearLayout>
+    <com.androidkun.PullToRefreshRecyclerView
+        android:id="@+id/activity_dongtan_recycle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </com.androidkun.PullToRefreshRecyclerView>
+</LinearLayout>

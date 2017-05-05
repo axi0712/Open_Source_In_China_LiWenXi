@@ -58,6 +58,7 @@
         android:src="@mipmap/sea"
         />
     <RelativeLayout
+        android:id="@+id/move_detail_rela"
         android:layout_below="@id/move_detail_BigImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -112,7 +113,7 @@
 
     </RelativeLayout>
     <android.support.design.widget.TabLayout
-        android:layout_below="@id/move_details_body"
+        android:layout_below="@id/move_detail_rela"
         android:id="@+id/move_detail_tab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -122,5 +123,5 @@
         android:layout_below="@id/move_detail_tab"
         android:id="@+id/move_detail_viewPager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></android.support.v4.view.ViewPager>
+        android:layout_height="wrap_content"></android.support.v4.view.ViewPager>
 </RelativeLayout>

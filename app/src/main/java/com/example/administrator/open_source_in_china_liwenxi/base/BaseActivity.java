@@ -82,7 +82,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         App.base = this;
-        initDatas();
+//        initDatas();
     }
 
     @Override

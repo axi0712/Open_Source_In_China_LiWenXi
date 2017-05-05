@@ -3,6 +3,7 @@ package com.example.administrator.open_source_in_china_liwenxi.model.fragment.ne
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
@@ -11,8 +12,10 @@ import com.androidkun.PullToRefreshRecyclerView;
 import com.androidkun.adapter.BaseAdapter;
 import com.androidkun.adapter.ViewHolder;
 import com.androidkun.callback.PullToRefreshListener;
+import com.example.administrator.open_source_in_china_liwenxi.App;
 import com.example.administrator.open_source_in_china_liwenxi.R;
 import com.example.administrator.open_source_in_china_liwenxi.base.BaseFragment;
+import com.example.administrator.open_source_in_china_liwenxi.model.adapter.MyContentLinearLayoutManager;
 import com.example.administrator.open_source_in_china_liwenxi.model.fragment.bean.PointJavaBean;
 import com.example.administrator.open_source_in_china_liwenxi.model.INewModel;
 import com.example.administrator.open_source_in_china_liwenxi.model.NewsModelImple;
@@ -58,8 +61,10 @@ public class Fragment_News_Point extends BaseFragment {
 //        mEditor.commit();
         LinearLayoutManager layout = new LinearLayoutManager(getActivity().getApplicationContext());
         layout.setOrientation(LinearLayoutManager.VERTICAL);
+//分割线
+        mView.addItemDecoration(new DividerItemDecoration(App.base,DividerItemDecoration.VERTICAL));
 
-        mView.setLayoutManager(layout);
+        mView.setLayoutManager(new MyContentLinearLayoutManager(mView.getContext()));
         mView.setPullRefreshEnabled(true);//下拉刷新
         mView.setLoadingMoreEnabled(true);//上拉加载
         mView.displayLastRefreshTime(true);//显示上次刷新的时间
@@ -67,20 +72,20 @@ public class Fragment_News_Point extends BaseFragment {
         mView.setPullToRefreshListener(new PullToRefreshListener() {
             @Override
             public void onRefresh() {
-                mView.postDelayed(new Runnable() {
+                mView.post(new Runnable() {
                     @Override
                     public void run() {
-                        mView.setRefreshComplete();
+                        pageIndex = 0;
                         mList.clear();
-                        for(int i = 1;i<=pageIndex;i++){
-                            loadMode();
-                        }
+//                        for (int i = 1; i <= pageIndex; i++) {
+                        loadMode();
+//                        }
+                        mView.setRefreshComplete();
 
-
-                        mEditor.putInt("Index",pageIndex);
-                        mEditor.commit();
+//                        mEditor.putInt("Index", pageIndex);
+//                        mEditor.commit();
                     }
-                }, 2000);
+                });
             }
 
             @Override
@@ -89,12 +94,13 @@ public class Fragment_News_Point extends BaseFragment {
                     @Override
                     public void run() {
                         pageIndex++;
-                        mView.setLoadMoreComplete();
+
 
                         loadMode();
-                        mEditor.putInt("Index",pageIndex);
-                        Log.i("加载",pageIndex+"");
-                        mEditor.commit();
+                        mView.setLoadMoreComplete();
+//                        mEditor.putInt("Index", pageIndex);
+//                        Log.i("加载", pageIndex + "");
+//                        mEditor.commit();
                     }
                 }, 2000);
             }

@@ -19,6 +19,8 @@ public abstract class BaseFragment extends Fragment {
         View v = inflater.inflate(layoutId(),container,false);
         initView(v);
         initData();
+        updateTitleBar();
+
         return v;
     }
 
@@ -44,7 +46,6 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        updateTitleBar();
 
     }
 
@@ -60,7 +61,6 @@ public abstract class BaseFragment extends Fragment {
 
     }
     public void onShow(){
-        updateTitleBar();
     }
     @Override
     public void onDestroyView() {

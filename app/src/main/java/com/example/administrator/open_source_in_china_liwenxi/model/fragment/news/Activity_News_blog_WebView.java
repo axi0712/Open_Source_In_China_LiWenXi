@@ -2,6 +2,7 @@ package com.example.administrator.open_source_in_china_liwenxi.model.fragment.ne
 
 import android.content.Intent;
 import android.util.Log;
+import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
@@ -32,6 +33,12 @@ public class Activity_News_blog_WebView extends BaseActivity {
         mActivityNewsOpenWebView = (RelativeLayout) findViewById(R.id.activity__news__blog__web_view);
         mFraNewsLin = (LinearLayout) findViewById(R.id.fra_news_blog_lin);
         mFraNewsCanel = (ImageView) findViewById(R.id.fra_news_blog_canel);
+        mFraNewsCanel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         mFraNewsCommed = (ImageView) findViewById(R.id.fra_news_blog_commed);
         mFraNewsCommedCount = (TextView) findViewById(R.id.fra_news_blog_commed_count);
         mWeb = (WebView) findViewById(R.id.fra_blog_webView);

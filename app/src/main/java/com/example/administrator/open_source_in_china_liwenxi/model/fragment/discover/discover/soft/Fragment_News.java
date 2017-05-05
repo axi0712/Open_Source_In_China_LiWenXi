@@ -58,7 +58,6 @@ public class Fragment_News extends BaseFragment {
                 mAdapter = new MyAdapter();
                 mView.setAdapter(mAdapter);
                 Log.i("多少",mAdapter.getItem(0)+"");
-                Log.i("KANKAN_________________news",homeListBean.getSoftwares().toString());
             }
         });
     }

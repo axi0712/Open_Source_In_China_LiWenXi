@@ -47,7 +47,7 @@ public class Fragment_Recommend extends BaseFragment {
 
     @Override
     protected void initData() {
-        model.discover_Recommend("1", new MyCallBack() {
+        model.discover_Recommend("5", new MyCallBack() {
             @Override
             public void onErro(String strErro) {
 

@@ -7,7 +7,7 @@ package com.example.administrator.open_source_in_china_liwenxi.utils;
 public class Urls {
     //每页返回的条数
     //新闻页数
-    public static final String pageSize ="10";
+    public static final String pageSize ="20";
     //新闻列表
     public static final String newsType ="1";
     //博客类别
@@ -21,15 +21,16 @@ public class Urls {
     //推荐类别
     public static final String type_Recommed ="recommend";
     //最新动弹
-    public static final String uid_move ="1";
-    //我的动弹
-    public static final String uid_move_mine = "0";
+    public static final String uid_move ="0";
+
     //热门动弹
     public static final String uid_move_hot = "-1";
     //发表评论 动弹
     public static final String CATALOG_MOVE = "3";
     //发表评论  是否转发
     public static final String MOVE_ZHUANFA = "0";
+    //获取评论
+    public static final String DETAIL_PINLUN = "3";
     //发现开源软件 推荐
     public static final String DISCOVER_RECOMMEND_SEARCHTAG = "recommend";
     //发现开源软件最新
@@ -48,7 +49,8 @@ public class Urls {
     public static final String SEARCH_NEWS_CATALOG = "news";
     //发现 线下活动 uid
     public static final String DISCOVER_UID = "0";
-
+    //我的  粉丝   关系
+    public static final String MINE_FENSI_RELATION = "0";
     //服务器地址
     public static final String BASE_URL = "http://www.oschina.net/";
     //资讯
@@ -91,4 +93,12 @@ public class Urls {
     public static final String MOVE_UNZAN = "action/api/tweet_unlike";
     //评论动弹
     public static final String MOVE_SEND = "action/api/comment_pub" ;
+    //线下活动详情
+    public static final String ACTIVITIES_DETAIL = "action/api/post_detail";
+    //查看评论
+    public static final String DETAIL_PINLUN_WANG = "action/api/comment_list";
+    //我的粉丝
+    public static final String MINE_FENSI_WANG = "action/api/friends_list";
+    //摇一摇
+    public static final String YAOYIYAO = "action/api/rock_rock";
 }

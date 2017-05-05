@@ -2,6 +2,7 @@ package com.example.administrator.open_source_in_china_liwenxi.model.fragment.mo
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
@@ -14,6 +15,7 @@ import com.example.administrator.open_source_in_china_liwenxi.R;
 import com.example.administrator.open_source_in_china_liwenxi.base.BaseFragment;
 import com.example.administrator.open_source_in_china_liwenxi.model.INewModel;
 import com.example.administrator.open_source_in_china_liwenxi.model.NewsModelImple;
+import com.example.administrator.open_source_in_china_liwenxi.model.adapter.MyContentLinearLayoutManager;
 import com.example.administrator.open_source_in_china_liwenxi.model.adapter.NewsDongTanAdapter;
 import com.example.administrator.open_source_in_china_liwenxi.model.fragment.bean.Move_NewJavaBean;
 import com.example.administrator.open_source_in_china_liwenxi.model.http.MyCallBack;
@@ -59,8 +61,9 @@ private NewsDongTanAdapter newsDongTanAdapter;
 //        mEditor.commit();
         LinearLayoutManager layout = new LinearLayoutManager(getActivity().getApplicationContext());
         layout.setOrientation(LinearLayoutManager.VERTICAL);
-
-        mView.setLayoutManager(layout);
+//分割线
+        mView.addItemDecoration(new DividerItemDecoration(App.base,DividerItemDecoration.VERTICAL));
+        mView.setLayoutManager(new MyContentLinearLayoutManager(mView.getContext()));
         mView.setPullRefreshEnabled(true);//下拉刷新
         mView.setLoadingMoreEnabled(true);//上拉加载
         mView.displayLastRefreshTime(true);//显示上次刷新的时间
@@ -69,7 +72,7 @@ private NewsDongTanAdapter newsDongTanAdapter;
         mView.setPullToRefreshListener(new PullToRefreshListener() {
             @Override
             public void onRefresh() {
-                mView.postDelayed(new Runnable() {
+                mView.post(new Runnable() {
                     @Override
                     public void run() {
                        pageIndex = 0;
@@ -82,7 +85,7 @@ private NewsDongTanAdapter newsDongTanAdapter;
 //                        mEditor.putInt("Index", pageIndex);
 //                        mEditor.commit();
                     }
-                }, 2000);
+                });
             }
 
             @Override
@@ -105,7 +108,7 @@ private NewsDongTanAdapter newsDongTanAdapter;
     }
 
     private void loadMode() {
-        model.move_mine(String.valueOf(pageIndex), new MyCallBack() {
+        model.move_new(String.valueOf(pageIndex), new MyCallBack() {
             @Override
             public void onErro(String strErro) {
 
@@ -120,8 +123,10 @@ private NewsDongTanAdapter newsDongTanAdapter;
                 xs.alias("user",Move_NewJavaBean.TweetBean.UserBean.class);
                 Move_NewJavaBean homeListBean = (Move_NewJavaBean) xs.fromXML(strSuccess);
                 mList.addAll(homeListBean.getTweets());
+                Log.i("mine+++++++",homeListBean.getTweets().toString());
              newsDongTanAdapter.notifyDataSetChanged();
-            }
+                Log.d("wodedededde",strSuccess);
+             }
         });
     }
 

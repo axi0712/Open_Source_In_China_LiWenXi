@@ -1,6 +1,7 @@
 package com.example.administrator.open_source_in_china_liwenxi.model.fragment.discover.discover.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.support.v7.widget.DividerItemDecoration;
@@ -22,6 +23,7 @@ import com.example.administrator.open_source_in_china_liwenxi.R;
 import com.example.administrator.open_source_in_china_liwenxi.base.BaseActivity;
 import com.example.administrator.open_source_in_china_liwenxi.model.INewModel;
 import com.example.administrator.open_source_in_china_liwenxi.model.NewsModelImple;
+import com.example.administrator.open_source_in_china_liwenxi.model.adapter.MyContentLinearLayoutManager;
 import com.example.administrator.open_source_in_china_liwenxi.model.fragment.bean.Activities_JavaBean;
 import com.example.administrator.open_source_in_china_liwenxi.model.http.MyCallBack;
 import com.jude.rollviewpager.RollPagerView;
@@ -43,6 +45,7 @@ public class Activity_Activities extends BaseActivity {
     private ArrayList<Activities_JavaBean.EventBean> mList = new ArrayList<>();
     private MyAdapter mAdapter;
     private int pageIndex = 1;
+    private ImageView mCancle;
     private INewModel model = null;
     //    private ViewPager mPager;
 //    private List<View> list = new ArrayList<>();
@@ -60,6 +63,13 @@ public class Activity_Activities extends BaseActivity {
         mShared = getSharedPreferences("data", MODE_PRIVATE);
         mEditor = mShared.edit();
         model = new NewsModelImple();
+        mCancle = (ImageView) findViewById(R.id.fra_news_blog_canel);
+        mCancle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         mView.addHeaderView(v);
 //        pageIndex = mShared.getInt("Index", 1);
         Log.e("knakn", pageIndex + "");
@@ -108,8 +118,9 @@ public class Activity_Activities extends BaseActivity {
     private void recyclerView() {
         LinearLayoutManager layout = new LinearLayoutManager(this);
         layout.setOrientation(LinearLayoutManager.VERTICAL);
+        //分割线
         mView.addItemDecoration(new DividerItemDecoration(App.base,DividerItemDecoration.VERTICAL));
-        mView.setLayoutManager(layout);
+        mView.setLayoutManager(new MyContentLinearLayoutManager(mView.getContext()));
         mView.setPullRefreshEnabled(true);//下拉刷新
         mView.setLoadingMoreEnabled(true);//上拉加载
         mView.displayLastRefreshTime(true);//显示上次刷新的时间
@@ -117,7 +128,7 @@ public class Activity_Activities extends BaseActivity {
         mView.setPullToRefreshListener(new PullToRefreshListener() {
             @Override
             public void onRefresh() {
-                mView.postDelayed(new Runnable() {
+                mView.post(new Runnable() {
                     @Override
                     public void run() {
                         mView.setRefreshComplete();
@@ -130,7 +141,7 @@ public class Activity_Activities extends BaseActivity {
 //                        mEditor.putInt("Index",pageIndex);
 //                        mEditor.commit();
                     }
-                }, 2000);
+                });
             }
 
             @Override
@@ -200,6 +211,16 @@ public class Activity_Activities extends BaseActivity {
 //            String date = Dates.getDate(javaBean.getCreateTime());
 //            Log.i("date________", date);
             holder.setText(R.id.activities_time, javaBean.getCreateTime());
+            final String str = javaBean.getId();
+            mEditor.putString("ids",str);
+            mEditor.commit();
+            holder.setOnclickListener(R.id.activities_item, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent in = new Intent(Activity_Activities.this,Activity_Detail.class);
+                    startActivity(in);
+                }
+            });
 //            holder.setOnclickListener(R.id.news_open, new View.OnClickListener() {
 //                @Override
 //                public void onClick(View v) {
@@ -217,9 +238,9 @@ public class Activity_Activities extends BaseActivity {
     }
     class RollAdapter extends StaticPagerAdapter {
         private int[] imgs = {
-                R.mipmap.purple_sky,
-                R.mipmap.blue_windy,
-                R.mipmap.sea,
+                R.mipmap.haha,
+                R.mipmap.hehe,
+                R.mipmap.meme,
         };
 
         @Override

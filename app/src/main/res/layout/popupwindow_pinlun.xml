@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#fff"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
     <LinearLayout
@@ -14,6 +15,7 @@
             android:id="@+id/popup_pinlun"
             android:focusable="true"
             android:background="@drawable/login_ed"
+
             />
         <Button
             android:id="@+id/popup_btn_pinlun"
